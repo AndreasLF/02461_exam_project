@@ -9,8 +9,8 @@ from pandas.plotting import register_matplotlib_converters
 def extract_ssi_data():
     """ Extract new daily positive cases
     
-    Return:
-        panda dataframe 
+    Returns:
+        (pandas.DataFrame) daily positive covid cases from SSI
      """
     test_pos_over_time_file = "data/Data-Epidemiologiske-Rapport-04012021-ja21/Test_pos_over_time.csv"
 
@@ -30,13 +30,14 @@ def extract_ssi_data():
 
 def data_exploration(df):
     """ Plot data 
-    params: 
-        df (panda dataframe)
+
+    Args: 
+        df (pandas.DataFrame): Daily positive covid cases 
     """
     df.plot()
     plt.title("Daily covid cases");
     plt.show()
 
 
-data_exploration(extract_ssi_data())
+# data_exploration(extract_ssi_data())
     
