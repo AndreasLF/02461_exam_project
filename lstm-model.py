@@ -15,6 +15,12 @@ from torch import nn, optim
 
 # Our module
 from extract_ssi_data import extract_ssi_data
+from extract_ssi_data import data_exploration
+
+# Run on GPU
+print("GPU Driver is installed: "+str(torch.cuda.is_available()))
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Import SSI Data
 df = extract_ssi_data()
@@ -28,7 +34,7 @@ torch.manual_seed(RANDOM_SEED)
 ########################
 
 # Split data 80 % traning 20 % test
-test_data_size = int(floor(len(df)*0.20))
+test_data_size = int(floor(len(df)*0.25))
 train_data = df[:-test_data_size]
 test_data = df[-test_data_size:]
 
@@ -46,8 +52,6 @@ test_data = scaler.transform(np.expand_dims(test_data, axis=1))
 
 # train_data.shape
 
-# Sequences are too large, we'll 
-
 def create_sequences(data, seq_length):
     """ Create sequences from the data 
     
@@ -63,6 +67,7 @@ def create_sequences(data, seq_length):
     ys = []
     for i in range(len(data)-seq_length-1):
         x = data[i:(i+seq_length)]
+        # Her tager han det næste element i dataserien (Indekset er ikke inklusivt så derfor fjerne han blot i:)
         y = data[i+seq_length]
         xs.append(x)
         ys.append(y)
@@ -71,16 +76,16 @@ def create_sequences(data, seq_length):
 
 
 # Vi opdeler vores data i sekvenser på 5 datapoints. Dette skal nok forøges da vi har meget mere end 41 datapunkter
-seq_length = 20
+seq_length = 3
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
 
 # Vi konverterer træningsdata og testdata til fra numpy til pytorch tensors
-X_train = torch.from_numpy(X_train).float()
-y_train = torch.from_numpy(y_train).float()
+X_train = torch.from_numpy(X_train).float().to(device)
+y_train = torch.from_numpy(y_train).float().to(device)
 
-X_test = torch.from_numpy(X_test).float()
-y_test = torch.from_numpy(y_test).float()
+X_test = torch.from_numpy(X_test).float().to(device)
+y_test = torch.from_numpy(y_test).float().to(device)
 
 class CoronaProphet(nn.Module):
     def __init__(self, n_features, n_hidden, seq_len, n_layers=2):
@@ -102,8 +107,8 @@ class CoronaProphet(nn.Module):
     
     def reset_hidden_state(self):
         self.hidden = (
-            torch.zeros(self.n_layers, self.seq_len, self.n_hidden),
-            torch.zeros(self.n_layers, self.seq_len, self.n_hidden)
+            torch.zeros(self.n_layers, self.seq_len, self.n_hidden).to(device),
+            torch.zeros(self.n_layers, self.seq_len, self.n_hidden).to(device)
         )
 
     def forward(self, sequences):
@@ -125,16 +130,15 @@ def train_model(
     test_labels = None
 ):
 
-    loss_fn = torch.nn.MSELoss(reduction="sum")
+    loss_fn = torch.nn.MSELoss(reduction="mean")
 
-    optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
-    num_epochs = 60
+    optimiser = torch.optim.Adam(model.parameters(), lr=1e-5)
+    num_epochs = 1500
 
     train_hist = np.zeros(num_epochs)
     test_hist = np.zeros(num_epochs)
 
     for t in range(num_epochs):
-        print("Epoch: "+str(t))
         model.reset_hidden_state()
 
         y_pred = model(X_train)
@@ -142,7 +146,6 @@ def train_model(
         loss = loss_fn(y_pred.float(), y_train)
 
         if test_data is not None:
-            print("Test Data is not None")
             with torch.no_grad():
                 y_test_pred = model(X_test)
                 test_loss = loss_fn(y_test_pred.float(), y_test)
@@ -168,7 +171,7 @@ model = CoronaProphet(
   n_hidden=512,
   seq_len=seq_length,
   n_layers=2
-)
+).to(device)
 model, train_hist, test_hist = train_model(
   model,
   X_train,
@@ -178,7 +181,48 @@ model, train_hist, test_hist = train_model(
 )
 
 
-plt.plot(train_hist, label="Training loss")
-plt.plot(test_hist, label="Test loss")
-plt.ylim((0, 5))
-plt.legend();
+# # plt.plot(train_hist, label="Training loss")
+# plt.plot(test_hist, label="Test loss")
+# data_exploration(extract_ssi_data())
+# # plt.ylim((0, 5))
+# plt.legend()
+# plt.show()
+
+with torch.no_grad():
+  test_seq = X_test[:1]
+  preds = []
+  for _ in range(len(X_test)):
+    y_test_pred = model(test_seq.to(device))
+    pred = torch.flatten(y_test_pred).item()
+    # print(pred)
+    preds.append(pred)
+    new_seq = test_seq.cpu().numpy().flatten()
+    new_seq = np.append(new_seq, [pred])
+    new_seq = new_seq[1:]
+    test_seq = torch.as_tensor(new_seq).view(1, seq_length, 1).float()
+
+true_cases = scaler.inverse_transform(
+np.expand_dims(y_test.flatten().cpu().numpy(), axis=0)
+).flatten()
+predicted_cases = scaler.inverse_transform(
+np.expand_dims(preds, axis=0)
+).flatten()
+
+
+plt.plot(
+  df.index[:len(train_data)],
+  scaler.inverse_transform(train_data).flatten(),
+  label='Historical Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  true_cases,
+  label='Real Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  predicted_cases,
+  label='Predicted Daily Cases'
+)
+plt.legend()
+plt.show()
