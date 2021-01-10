@@ -39,18 +39,23 @@ def data_exploration(df):
     plt.title("Daily covid cases");
     plt.show()
 
-def extract_dmi_temp_data():
-    """ Extract data from dmi temperature csv-files
+def extract_dmi_data(stat):
+    """ Extract data from dmi csv-files
+
+    Args:
+        stat (str): Statistics to load [FUGTIG, LUFTRYK, NEDBØR, SOLSKIN, TEMP, VIND]
 
     Returns:
-        df (pd.DataFrame) containing lowest, highest and middle temperature each day in 2020
+        df (pd.DataFrame) containing statistics from dmi 2020
     """
+    stat = f"DMI-{stat.upper()}"
+
     months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"]
 
-    first_month_file = f"data/DMI-TEMP/hele-landet-{months[0]}-2020.csv"
+    first_month_file = f"data/{stat}/hele-landet-{months[0]}-2020.csv"
     df = pd.read_csv(first_month_file, sep=";")
     for month in months[1:]:
-        dmi_file = f"data/DMI-TEMP/hele-landet-{month}-2020.csv"
+        dmi_file = f"data/{stat}/hele-landet-{month}-2020.csv"
         dmi_data = pd.read_csv(dmi_file, sep=";")
         df = df.append(dmi_data)
 
@@ -60,7 +65,7 @@ def extract_dmi_temp_data():
 # data_exploration(extract_ssi_data())
 
 
-# df = extract_dmi_temp_data()
+# df = extract_dmi_data("fugtig")
 # df.insert(0, "NewPositive",extract_ssi_data())
 # print(df)
 # print(extract_ssi_data())
