@@ -40,6 +40,11 @@ def data_exploration(df):
     plt.show()
 
 def extract_dmi_temp_data():
+    """ Extract data from dmi temperature csv-files
+
+    Returns:
+        df (pd.DataFrame) containing lowest, highest and middle temperature each day in 2020
+    """
     months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"]
 
     first_month_file = f"data/DMI-TEMP/hele-landet-{months[0]}-2020.csv"
@@ -53,8 +58,9 @@ def extract_dmi_temp_data():
     df = df.drop(["DateTime"],axis=1)
     return df
 # data_exploration(extract_ssi_data())
-    
-df = extract_dmi_temp_data()
-df.insert(0, "NewPositive",extract_ssi_data())
-print(df)
+
+
+# df = extract_dmi_temp_data()
+# df.insert(0, "NewPositive",extract_ssi_data())
+# print(df)
 # print(extract_ssi_data())
