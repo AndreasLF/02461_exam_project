@@ -4,6 +4,7 @@ import seaborn as sns
 from pylab import rcParams
 from matplotlib import rc
 from pandas.plotting import register_matplotlib_converters
+import numpy as np
 
 
 def extract_ssi_data():
@@ -38,6 +39,22 @@ def data_exploration(df):
     plt.title("Daily covid cases");
     plt.show()
 
+def extract_dmi_temp_data():
+    months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"]
 
+    first_month_file = f"data/DMI-TEMP/hele-landet-{months[0]}-2020.csv"
+    df = pd.read_csv(first_month_file, sep=";")
+    for month in months[1:]:
+        dmi_file = f"data/DMI-TEMP/hele-landet-{month}-2020.csv"
+        dmi_data = pd.read_csv(dmi_file, sep=";")
+        df = df.append(dmi_data)
+
+    df.index = pd.to_datetime(df["DateTime"])
+    df = df.drop(["DateTime"],axis=1)
+    return df
 # data_exploration(extract_ssi_data())
     
+df = extract_dmi_temp_data()
+df.insert(0, "NewPositive",extract_ssi_data())
+print(df)
+# print(extract_ssi_data())
