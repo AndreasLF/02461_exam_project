@@ -14,8 +14,7 @@ from pandas.plotting import register_matplotlib_converters
 from torch import nn, optim
 
 # Our module
-from extract_ssi_data import extract_ssi_data
-from extract_ssi_data import data_exploration
+from extract_ssi_data import *
 
 # Run on GPU
 print("GPU Driver is installed: "+str(torch.cuda.is_available()))
@@ -23,7 +22,8 @@ print("GPU Driver is installed: "+str(torch.cuda.is_available()))
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Import SSI Data
-df = extract_ssi_data()
+# df = extract_ssi_data()
+df = extract_dmi_data()
 
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
@@ -34,7 +34,7 @@ torch.manual_seed(RANDOM_SEED)
 ########################
 
 # Split data 80 % traning 20 % test
-test_data_size = int(floor(len(df)*0.25))
+test_data_size = int(floor(len(df)*0.1))
 train_data = df[:-test_data_size]
 test_data = df[-test_data_size:]
 
@@ -76,7 +76,7 @@ def create_sequences(data, seq_length):
 
 
 # Vi opdeler vores data i sekvenser på 5 datapoints. Dette skal nok forøges da vi har meget mere end 41 datapunkter
-seq_length = 3
+seq_length = 1
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
 
@@ -132,8 +132,8 @@ def train_model(
 
     loss_fn = torch.nn.MSELoss(reduction="mean")
 
-    optimiser = torch.optim.Adam(model.parameters(), lr=1e-5)
-    num_epochs = 1500
+    optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
+    num_epochs = 10
 
     train_hist = np.zeros(num_epochs)
     test_hist = np.zeros(num_epochs)
@@ -193,7 +193,7 @@ with torch.no_grad():
   preds = []
   for _ in range(len(X_test)):
     y_test_pred = model(test_seq.to(device))
-    pred = torch.flatten(y_test_pred).item()
+    pred = torch.flatten(y_test_pred).item().to(device)
     # print(pred)
     preds.append(pred)
     new_seq = test_seq.cpu().numpy().flatten()
