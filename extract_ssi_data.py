@@ -64,9 +64,10 @@ def extract_dmi_data(stat):
     return df
 # data_exploration(extract_ssi_data())
 
+def get_data():
+    df = pd.concat([extract_dmi_data("fugtig"), extract_dmi_data("temp")], axis=1)
+    df.insert(0, "NewPositive",extract_ssi_data())
+    df = df.dropna()
+    return df
 
-# df = pd.concat([extract_dmi_data("fugtig"), extract_dmi_data("temp")], axis=1)
-# df.insert(0, "NewPositive",extract_ssi_data())
-# df = df.dropna()
-# print(df)
-# print(extract_ssi_data())
+# print(get_data())
