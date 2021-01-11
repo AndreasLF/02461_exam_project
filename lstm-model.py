@@ -23,7 +23,9 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Import SSI Data
 # df = extract_ssi_data()
-df = extract_dmi_data()
+df = get_data()
+# print(extract_ssi_data())
+# print(df)
 
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
@@ -38,19 +40,53 @@ test_data_size = int(floor(len(df)*0.1))
 train_data = df[:-test_data_size]
 test_data = df[-test_data_size:]
 
+# print(train_data)
+# print(test_data)
+
 # Data skal squishes til min-max [0:1]
 # Dette gør vi for at optimere training speed (blandt andet også derfor man bruger tanh)
 # bruger sckit MinMaxScaler
 
 scaler = MinMaxScaler()
 
-scaler = scaler.fit(np.expand_dims(train_data, axis=1))
+cases_train = train_data["NewPositive"]
+fugtighed_train = train_data["Luftfugtighed"]
+mid_temp_train = train_data["Middel"]
 
-train_data = scaler.transform(np.expand_dims(train_data, axis=1))
+cases_test = test_data["NewPositive"]
+fugtighed_test = test_data["Luftfugtighed"]
+mid_temp_test = test_data["Middel"]
 
-test_data = scaler.transform(np.expand_dims(test_data, axis=1))
+# scaler = scaler.fit(np.expand_dims(train_data, axis=1))
 
-# train_data.shape
+scaler = scaler.fit(np.expand_dims(cases_train, axis=1))
+cases_train = scaler.transform(np.expand_dims(cases_train, axis=1))
+
+scaler = scaler.fit(np.expand_dims(fugtighed_train, axis=1))
+fugtighed_train = scaler.transform(np.expand_dims(fugtighed_train, axis=1))
+
+scaler = scaler.fit(np.expand_dims(mid_temp_train, axis=1))
+mid_temp_train = scaler.transform(np.expand_dims(mid_temp_train, axis=1))
+
+# print(fugtighed_train)
+
+# train_data = scaler.transform(np.expand_dims(train_data, axis=1))
+
+train_data = np.hstack([cases_train, fugtighed_train, mid_temp_train])
+
+# print(train_data)
+
+scaler = scaler.fit(np.expand_dims(cases_test, axis=1))
+cases_test = scaler.transform(np.expand_dims(cases_test, axis=1))
+
+scaler = scaler.fit(np.expand_dims(fugtighed_test, axis=1))
+fugtighed_test = scaler.transform(np.expand_dims(fugtighed_test, axis=1))
+
+scaler = scaler.fit(np.expand_dims(mid_temp_test, axis=1))
+mid_temp_test = scaler.transform(np.expand_dims(mid_temp_test, axis=1))
+
+test_data = np.hstack([cases_test, fugtighed_test, mid_temp_test])
+# test_data = scaler.transform(np.expand_dims(test_data, axis=1))
 
 def create_sequences(data, seq_length):
     """ Create sequences from the data 
@@ -86,6 +122,14 @@ y_train = torch.from_numpy(y_train).float().to(device)
 
 X_test = torch.from_numpy(X_test).float().to(device)
 y_test = torch.from_numpy(y_test).float().to(device)
+
+print("X_train shape:"+str(np.shape(X_train)))
+print("y_train shape:"+str(np.shape(y_train)))
+
+print("X_test shape:"+str(np.shape(X_test)))
+print("y_test shape:"+str(np.shape(y_test)))
+
+# print(y_test)
 
 class CoronaProphet(nn.Module):
     def __init__(self, n_features, n_hidden, seq_len, n_layers=2):
@@ -133,12 +177,12 @@ def train_model(
     loss_fn = torch.nn.MSELoss(reduction="mean")
 
     optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
-    num_epochs = 10
+    num_epochs = 1
 
     train_hist = np.zeros(num_epochs)
     test_hist = np.zeros(num_epochs)
 
-    for t in range(num_epochs):
+    for t in tqdm(range(num_epochs)):
         model.reset_hidden_state()
 
         y_pred = model(X_train)
@@ -167,7 +211,7 @@ def train_model(
     return model.eval(), train_hist, test_hist
 
 model = CoronaProphet(
-  n_features=1,
+  n_features=3,
   n_hidden=512,
   seq_len=seq_length,
   n_layers=2
@@ -193,34 +237,51 @@ with torch.no_grad():
   preds = []
   for _ in range(len(X_test)):
     y_test_pred = model(test_seq.to(device))
-    pred = torch.flatten(y_test_pred).item().to(device)
+    pred = torch.flatten(y_test_pred).item()
     # print(pred)
     preds.append(pred)
     new_seq = test_seq.cpu().numpy().flatten()
     new_seq = np.append(new_seq, [pred])
     new_seq = new_seq[1:]
-    test_seq = torch.as_tensor(new_seq).view(1, seq_length, 1).float()
+    # test_seq = torch.as_tensor(new_seq).to(device).view(1, seq_length, 1).float()
+    test_seq = torch.as_tensor(new_seq).to(device).view((test_seq.size(0), -1)).float()
+
+print("y_test: "+str(y_test))
 
 true_cases = scaler.inverse_transform(
-np.expand_dims(y_test.flatten().cpu().numpy(), axis=0)
+np.expand_dims(y_test[:, -1].flatten().cpu().numpy(), axis=0)
 ).flatten()
 predicted_cases = scaler.inverse_transform(
 np.expand_dims(preds, axis=0)
 ).flatten()
 
+# print(np.shape(cases_train.reshape(len(cases_train))))
+print("Size of true cases: "+str(np.size(true_cases)))
+
+plot_train_data = cases_train.reshape(len(cases_train))
+
+print("Size of plot_train_data: "+str(np.size(plot_train_data)))
+
+# plt.plot(
+#   df.index[:len(plot_train_data)],
+#   scaler.inverse_transform(plot_train_data.reshape(-1, 1)).flatten(),
+#   label='Historical Daily Cases'
+# )
+
+print("Real Daily Cases dates length: "+str(len(df.index[len(plot_train_data):len(plot_train_data) + len(true_cases)])))
+print("Real Daily Cases dates: "+str(df.index[len(plot_train_data):len(plot_train_data) + len(true_cases)]))
+
+print("Real Daily Cases dates length: "+str(len(true_cases)))
+# print("Real Daily Cases dates: "+str(true_cases))
+
+# plt.plot(
+#   df.index[len(plot_train_data):len(plot_train_data) + len(true_cases)],
+#   true_cases,
+#   label='Real Daily Cases'
+# )
 
 plt.plot(
-  df.index[:len(train_data)],
-  scaler.inverse_transform(train_data).flatten(),
-  label='Historical Daily Cases'
-)
-plt.plot(
-  df.index[len(train_data):len(train_data) + len(true_cases)],
-  true_cases,
-  label='Real Daily Cases'
-)
-plt.plot(
-  df.index[len(train_data):len(train_data) + len(true_cases)],
+  df.index[len(plot_train_data):len(plot_train_data) + len(true_cases)],
   predicted_cases,
   label='Predicted Daily Cases'
 )
