@@ -111,7 +111,7 @@ def create_sequences(data, seq_length):
 
 
 # # Vi opdeler vores data i sekvenser på 5 datapoints. Dette skal nok forøges da vi har meget mere end 41 datapunkter
-seq_length = 2
+seq_length = 7
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
 
@@ -173,7 +173,7 @@ def train_model(
     loss_fn = torch.nn.MSELoss(reduction="mean")
 
     optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
-    num_epochs = 2
+    num_epochs = 250
 
     train_hist = np.zeros(num_epochs)
     test_hist = np.zeros(num_epochs)
@@ -221,9 +221,9 @@ model, train_hist, test_hist = train_model(
 )
 
 
-# # plt.plot(train_hist, label="Training loss")
+# plt.plot(train_hist, label="Training loss")
 # plt.plot(test_hist, label="Test loss")
-# data_exploration(extract_ssi_data())
+# # data_exploration(extract_ssi_data())
 # # plt.ylim((0, 5))
 # plt.legend()
 # plt.show()
@@ -248,6 +248,7 @@ predicted_cases = cases_scaler.inverse_transform(
 np.expand_dims(preds, axis=0)
 ).flatten()
 
+print(predicted_cases)
 
 # plt.plot(
 #   df.index[:len(train_data)],

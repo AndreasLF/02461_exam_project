@@ -207,6 +207,7 @@ def train_model(
         optimiser.zero_grad()
         loss.backward()
         optimiser.step()
+        
 
     return model.eval(), train_hist, test_hist
 

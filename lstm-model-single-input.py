@@ -29,11 +29,19 @@ np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 
 ########################
-#   Preproccessing     #
+#   Variables          #
 ########################
 
-# Split data 80 % traning 20 % test
-test_data_size = int(floor(len(df)*0.1))
+num_epochs = 230
+learning_rate = 1e-3
+hidden = 600
+features = 1
+layers = 2
+seq_length = 1
+test_size = 0.1
+
+# Split data 90 % traning 10 % test
+test_data_size = int(floor(len(df)*test_size))
 train_data = df[:-test_data_size]
 test_data = df[-test_data_size:]
 
@@ -75,7 +83,7 @@ def create_sequences(data, seq_length):
 
 
 # Vi opdeler vores data i sekvenser på 5 datapoints. Dette skal nok forøges da vi har meget mere end 41 datapunkter
-seq_length = 1
+
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
 
@@ -85,6 +93,11 @@ y_train = torch.from_numpy(y_train).float().to(device)
 
 X_test = torch.from_numpy(X_test).float().to(device)
 y_test = torch.from_numpy(y_test).float().to(device)
+
+# print(np.shape(X_train))
+# print(np.shape(y_train))
+# print(np.shape(X_test))
+# print(np.shape(y_test))
 
 class CoronaProphet(nn.Module):
     def __init__(self, n_features, n_hidden, seq_len, n_layers=2):
@@ -131,8 +144,7 @@ def train_model(
 
     loss_fn = torch.nn.MSELoss(reduction="mean")
 
-    optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
-    num_epochs = 1
+    optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
     train_hist = np.zeros(num_epochs)
     test_hist = np.zeros(num_epochs)
@@ -166,10 +178,10 @@ def train_model(
     return model.eval(), train_hist, test_hist
 
 model = CoronaProphet(
-  n_features=1,
-  n_hidden=512,
+  n_features=features,
+  n_hidden=hidden,
   seq_len=seq_length,
-  n_layers=2
+  n_layers=layers
 ).to(device)
 model, train_hist, test_hist = train_model(
   model,
@@ -179,13 +191,13 @@ model, train_hist, test_hist = train_model(
   y_test
 )
 
-
-# # plt.plot(train_hist, label="Training loss")
-# plt.plot(test_hist, label="Test loss")
+plt.plot(train_hist, label="Training loss")
+plt.plot(test_hist, label="Test loss")
 # data_exploration(extract_ssi_data())
-# # plt.ylim((0, 5))
-# plt.legend()
-# plt.show()
+# plt.ylim((0, 5))
+plt.legend()
+plt.savefig("C:\\Users\\augus\\iCloudDrive\\Documents\\SEM1\\3-Ugers-Projekt\\02461_exam_project\\Graphs\\Plot_for_{}-{}-{}-{}-{}-{}-{}.png".format(num_epochs, learning_rate, hidden, features,layers,seq_length, test_size))
+plt.show()
 
 with torch.no_grad():
   test_seq = X_test[:1]
@@ -208,20 +220,20 @@ np.expand_dims(preds, axis=0)
 ).flatten()
 
 
-plt.plot(
-  df.index[:len(train_data)],
-  scaler.inverse_transform(train_data).flatten(),
-  label='Historical Daily Cases'
-)
-plt.plot(
-  df.index[len(train_data):len(train_data) + len(true_cases)],
-  true_cases,
-  label='Real Daily Cases'
-)
-plt.plot(
-  df.index[len(train_data):len(train_data) + len(true_cases)],
-  predicted_cases,
-  label='Predicted Daily Cases'
-)
-plt.legend()
-plt.show()
+# plt.plot(
+#   df.index[:len(train_data)],
+#   scaler.inverse_transform(train_data).flatten(),
+#   label='Historical Daily Cases'
+# )
+# plt.plot(
+#   df.index[len(train_data):len(train_data) + len(true_cases)],
+#   true_cases,
+#   label='Real Daily Cases'
+# )
+# plt.plot(
+#   df.index[len(train_data):len(train_data) + len(true_cases)],
+#   predicted_cases,
+#   label='Predicted Daily Cases'
+# )
+# plt.legend()
+# plt.show()
