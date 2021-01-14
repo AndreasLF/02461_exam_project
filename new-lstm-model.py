@@ -25,15 +25,15 @@ class LSTM(nn.Module):
 
     """
 
-    def __init__(self, num_classes=1, input_size=1, hidden_size, num_layers=1, seq_length):
+    def __init__(self, seq_length, num_classes=1, input_size=1, hidden_size=1, num_layers=1):
         """ Initialize LSTM object
 
         Args:
+            seq_length (int): Sequence length for the input
             num_classes (int): Size of output sample for nn.Linear
             input_size (int): Number of features fed to the model. Defaults to 1
-            hidden_size (int): Number of neurons in each layer
+            hidden_size (int): Number of neurons in each layer. Defaults to 1
             num_layers (int): Number of layers in the network. Defaults to 1
-            seq_length (int): Sequence length for the input
 
         """
         super(LSTM, self).__init__()
@@ -102,7 +102,7 @@ flight_data = sns.load_dataset("flights")
 flight_data = flight_data['passengers'].values.astype(float)
 
 # Percentage of test size
-test_size = 0.2
+test_size = 0.15
 
 # Split data in training and test
 test_data_size = int(floor(len(flight_data)*test_size))
@@ -113,11 +113,71 @@ test_data = flight_data[-test_data_size:]
 scaler = MinMaxScaler(feature_range=(-1, 1))
 # Scale data. Data is fit in the range [-1,1]
 train_data_normalized = scaler.fit_transform(train_data .reshape(-1, 1))
+test_data_normalized = scaler.fit_transform(test_data .reshape(-1, 1))
+
+
+seq_length = 12
 
 # Create feature sequences and targets
-x_train, y_train = create_sequences(train_data_normalized, 12)
+x_train, y_train = create_sequences(train_data_normalized, seq_length)
+x_test, y_test = create_sequences(test_data_normalized, seq_length)
+
 
 # Convert to tensors
 x_train = torch.Tensor(np.array(x_train))
 y_train = torch.Tensor(np.array(y_train))
 
+x_test = torch.Tensor(np.array(x_test))
+y_test = torch.Tensor(np.array(y_test))
+
+
+
+num_epochs = 1000
+learning_rate = 0.01
+
+input_size = 1
+hidden_size = 3
+num_layers = 1
+
+num_classes = 1
+
+# Create LSTM object
+lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers)
+
+# Mean squared error loss function defined
+loss_fn = torch.nn.MSELoss()   
+# Adam optimizer is used 
+optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
+
+
+nn_log = {"train_loss": [], "test_loss": []}
+
+
+# Train the model
+for epoch in range(num_epochs):
+    y_pred = lstm(x_train)
+    optimizer.zero_grad()
+
+    
+    # Get loss function
+    loss = loss_fn(y_pred, y_train)
+    
+    # If test_data is defined
+    if test_data is not None:
+      with torch.no_grad():
+        # A prediciton will be made
+        y_test_pred = lstm(x_test)
+        # Get loss function
+        test_loss = loss_fn(y_test_pred, y_test)
+
+    # Backward propagate
+    loss.backward()
+    
+    optimizer.step()
+
+    nn_log["train_loss"].append(loss.item())
+    nn_log["test_loss"].append(test_loss.item())
+
+    # Print loss
+    if epoch % 10 == 0:
+        print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
