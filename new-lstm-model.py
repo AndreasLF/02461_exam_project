@@ -101,35 +101,31 @@ flight_data = sns.load_dataset("flights")
 # Convert monthly passengers to float
 flight_data = flight_data['passengers'].values.astype(float)
 
-# Percentage of test size
-test_size = 0.15
-
-# Split data in training and test
-test_data_size = int(floor(len(flight_data)*test_size))
-train_data = flight_data[:-test_data_size]
-test_data = flight_data[-test_data_size:]
-
 # Define a scaler to normalize the data
 scaler = MinMaxScaler(feature_range=(-1, 1))
 # Scale data. Data is fit in the range [-1,1]
-train_data_normalized = scaler.fit_transform(train_data .reshape(-1, 1))
-test_data_normalized = scaler.fit_transform(test_data .reshape(-1, 1))
-
+data_normalized = scaler.fit_transform(flight_data .reshape(-1, 1))
 
 seq_length = 12
-
 # Create feature sequences and targets
-x_train, y_train = create_sequences(train_data_normalized, seq_length)
-x_test, y_test = create_sequences(test_data_normalized, seq_length)
+x, y = create_sequences(data_normalized, seq_length)
 
 
-# Convert to tensors
-x_train = torch.Tensor(np.array(x_train))
-y_train = torch.Tensor(np.array(y_train))
+# Percentage of test size
+test_size_pct = 0.30
+# Split data in training and test
+train_size = int(floor(len(flight_data)*(1-test_size_pct)))
 
-x_test = torch.Tensor(np.array(x_test))
-y_test = torch.Tensor(np.array(y_test))
+# Convert all feature sequences and targets to tensors
+x_data = torch.Tensor(np.array(x))
+y_data = torch.Tensor(np.array(y))
 
+# Split train and test data and convert to tensors
+x_train = torch.Tensor(np.array(x[0:train_size]))
+y_train = torch.Tensor(np.array(y[0:train_size]))
+
+x_test = torch.Tensor(np.array(x[train_size:len(x)]))
+y_test = torch.Tensor(np.array(y[train_size:len(y)]))
 
 
 num_epochs = 1000
@@ -162,19 +158,17 @@ for epoch in range(num_epochs):
     # Get loss function
     loss = loss_fn(y_pred, y_train)
     
-    # If test_data is defined
-    if test_data is not None:
-      with torch.no_grad():
-        # A prediciton will be made
-        y_test_pred = lstm(x_test)
-        # Get loss function
-        test_loss = loss_fn(y_test_pred, y_test)
+    # Make prediciton
+    y_test_pred = lstm(x_test) 
+    # Get loss function
+    test_loss = loss_fn(y_test_pred, y_test)
 
     # Backward propagate
     loss.backward()
     
     optimizer.step()
 
+    # Save loss
     nn_log["train_loss"].append(loss.item())
     nn_log["test_loss"].append(test_loss.item())
 
@@ -183,9 +177,9 @@ for epoch in range(num_epochs):
         print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
 
 # Plot loss by epochs
-plt.plot(nn_log["train_loss"])
-plt.plot(nn_log['test_loss'])
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(["Train loss", "Test loss"], loc='upper left')
-plt.show()
+# plt.plot(nn_log["train_loss"])
+# plt.plot(nn_log['test_loss'])
+# plt.ylabel('loss')
+# plt.xlabel('epoch')
+# plt.legend(["Train loss", "Test loss"], loc='upper left')
+# plt.show()
