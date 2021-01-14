@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from math import floor
 
 # Load flight data from seaborn library
 flight_data = sns.load_dataset("flights")
@@ -25,3 +26,11 @@ plt.show()
 
 # Convert monthly passengers to float
 flight_data = flight_data['passengers'].values.astype(float)
+
+# Percentage of test size
+test_size = 0.2
+
+# Split data in training and test
+test_data_size = int(floor(len(flight_data)*test_size))
+train_data = flight_data[:-test_data_size]
+test_data = flight_data[-test_data_size:]
