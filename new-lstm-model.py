@@ -28,3 +28,8 @@ test_data = flight_data[-test_data_size:]
 scaler = MinMaxScaler(feature_range=(-1, 1))
 # Scale data. Data is fit in the range [-1,1]
 train_data_normalized = scaler.fit_transform(train_data .reshape(-1, 1))
+
+# Create tensors from data
+train_data_normalized = torch.FloatTensor(train_data_normalized).view(-1)
+
+print(train_data_normalized)
