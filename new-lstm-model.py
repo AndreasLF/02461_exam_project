@@ -13,20 +13,6 @@ from math import floor
 
 # Load flight data from seaborn library
 flight_data = sns.load_dataset("flights")
-
-# Explore data
-print(flight_data)
-print(flight_data.shape)
-
-# Plot flight data
-plt.title('Flight passengers per month')
-plt.ylabel('Passengers')
-plt.xlabel('Month')
-plt.grid(True)
-plt.autoscale(axis='x',tight=True)
-plt.plot(flight_data['passengers'])
-plt.show()
-
 # Convert monthly passengers to float
 flight_data = flight_data['passengers'].values.astype(float)
 
