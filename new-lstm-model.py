@@ -181,3 +181,11 @@ for epoch in range(num_epochs):
     # Print loss
     if epoch % 10 == 0:
         print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
+
+# Plot loss by epochs
+plt.plot(nn_log["train_loss"])
+plt.plot(nn_log['test_loss'])
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(["Train loss", "Test loss"], loc='upper left')
+plt.show()
