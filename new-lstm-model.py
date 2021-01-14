@@ -6,6 +6,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Import MinMaxScaler from sklearn
+from sklearn.preprocessing import MinMaxScaler
+# Import floor function from math module
 from math import floor
 
 # Load flight data from seaborn library
@@ -34,3 +37,8 @@ test_size = 0.2
 test_data_size = int(floor(len(flight_data)*test_size))
 train_data = flight_data[:-test_data_size]
 test_data = flight_data[-test_data_size:]
+
+# Define a scaler to normalize the data
+scaler = MinMaxScaler(feature_range=(-1, 1))
+# Scale data. Data is fit in the range [-1,1]
+train_data_normalized = scaler.fit_transform(train_data .reshape(-1, 1))
