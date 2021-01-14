@@ -177,9 +177,26 @@ for epoch in range(num_epochs):
         print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
 
 # Plot loss by epochs
-# plt.plot(nn_log["train_loss"])
-# plt.plot(nn_log['test_loss'])
-# plt.ylabel('loss')
-# plt.xlabel('epoch')
-# plt.legend(["Train loss", "Test loss"], loc='upper left')
-# plt.show()
+plt.plot(nn_log["train_loss"])
+plt.plot(nn_log['test_loss'])
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(["Train loss", "Test loss"], loc='upper left')
+plt.show()
+
+
+# Plot train and predict data
+train_predict = lstm(x_data)
+
+data_predict = train_predict.data.numpy()
+dataY_plot = y_data.data.numpy()
+
+data_predict = scaler.inverse_transform(data_predict)
+dataY_plot = scaler.inverse_transform(dataY_plot)
+
+plt.axvline(x=train_size, c='r', linestyle='--')
+
+plt.plot(dataY_plot)
+plt.plot(data_predict)
+plt.suptitle('Time-Series Prediction')
+plt.show()
