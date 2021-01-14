@@ -22,3 +22,6 @@ plt.grid(True)
 plt.autoscale(axis='x',tight=True)
 plt.plot(flight_data['passengers'])
 plt.show()
+
+# Convert monthly passengers to float
+flight_data = flight_data['passengers'].values.astype(float)
