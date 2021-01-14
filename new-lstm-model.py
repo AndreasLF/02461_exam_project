@@ -11,6 +11,68 @@ from sklearn.preprocessing import MinMaxScaler
 # Import floor function from math module
 from math import floor
 
+
+class LSTM(nn.Module):
+    """LSTM time series prediction model
+
+    Attributes:
+        num_classes (int): Size of output sample for nn.Linear
+        input_size (int): Number of features fed to the model
+        hidden_size (int): Number of neurons in each layer
+        num_layers (int): Number of layers in the network
+        fc: Instance of the nn.Linear module
+        lstm: Instance of the LSTM module
+
+    """
+
+    def __init__(self, num_classes=1, input_size=1, hidden_size, num_layers=1, seq_length):
+        """ Initialize LSTM object
+
+        Args:
+            num_classes (int): Size of output sample for nn.Linear
+            input_size (int): Number of features fed to the model. Defaults to 1
+            hidden_size (int): Number of neurons in each layer
+            num_layers (int): Number of layers in the network. Defaults to 1
+            seq_length (int): Sequence length for the input
+
+        """
+        super(LSTM, self).__init__()
+        
+        # Set the class attributes
+        self.num_classes = num_classes
+        self.num_layers = num_layers
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.seq_length = seq_length
+        
+        # Define the lstm model
+        self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size,
+                            num_layers=num_layers, batch_first=True)
+        
+        # Define instance of nn.Linear
+        self.fc = nn.Linear(hidden_size, num_classes)
+
+    def forward(self, x):
+        """  Propagate through the NN network layers
+
+        Args: 
+        x (torch):  is the input features
+        """
+        h_0 = torch.zeros(
+            self.num_layers, x.size(0), self.hidden_size)
+        
+        c_0 = torch.zeros(
+            self.num_layers, x.size(0), self.hidden_size)
+        
+        # Propagate input through LSTM
+        ula, (h_out, _) = self.lstm(x, (h_0, c_0))
+        
+        h_out = h_out.view(-1, self.hidden_size)
+        
+        out = self.fc(h_out)
+        
+        return out
+
 def create_sequences(data, seq_length):
     """ Create sequences from the data 
     
@@ -58,3 +120,4 @@ x_train, y_train = create_sequences(train_data_normalized, 12)
 # Convert to tensors
 x_train = torch.Tensor(np.array(x_train))
 y_train = torch.Tensor(np.array(y_train))
+
