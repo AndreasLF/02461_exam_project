@@ -60,10 +60,10 @@ class LSTM(nn.Module):
         x (torch):  is the input features
         """
         h_0 = torch.zeros(
-            self.num_layers, x.size(0), self.hidden_size)
+            self.num_layers, x.size(0), self.hidden_size).to(device)
         
         c_0 = torch.zeros(
-            self.num_layers, x.size(0), self.hidden_size)
+            self.num_layers, x.size(0), self.hidden_size).to(device)
         
         # Propagate input through LSTM
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
@@ -97,6 +97,11 @@ def create_sequences(data, seq_length):
     # Convert to ndarrays and return
     return np.array(xs), np.array(ys)
 
+
+# Run on GPU
+print("GPU Driver is installed: "+str(torch.cuda.is_available()))
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # Load flight data from seaborn library
 flight_data = sns.load_dataset("flights")
 # Convert monthly passengers to float
@@ -118,15 +123,15 @@ test_size_pct = 0.30
 train_size = int(floor(len(flight_data)*(1-test_size_pct)))
 
 # Convert all feature sequences and targets to tensors
-x_data = torch.Tensor(np.array(x))
-y_data = torch.Tensor(np.array(y))
+x_data = torch.Tensor(np.array(x)).to(device)
+y_data = torch.Tensor(np.array(y)).to(device)
 
 # Split train and test data and convert to tensors
-x_train = torch.Tensor(np.array(x[0:train_size]))
-y_train = torch.Tensor(np.array(y[0:train_size]))
+x_train = torch.Tensor(np.array(x[0:train_size])).to(device)
+y_train = torch.Tensor(np.array(y[0:train_size])).to(device)
 
-x_test = torch.Tensor(np.array(x[train_size:len(x)]))
-y_test = torch.Tensor(np.array(y[train_size:len(y)]))
+x_test = torch.Tensor(np.array(x[train_size:len(x)])).to(device)
+y_test = torch.Tensor(np.array(y[train_size:len(y)])).to(device)
 
 
 learning_rate_range = np.arange(0.1, 0.6, 0.1)
