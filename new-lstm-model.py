@@ -5,6 +5,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt2
 
 # Import MinMaxScaler from sklearn
 from sklearn.preprocessing import MinMaxScaler
@@ -128,75 +129,109 @@ x_test = torch.Tensor(np.array(x[train_size:len(x)]))
 y_test = torch.Tensor(np.array(y[train_size:len(y)]))
 
 
-num_epochs = 1000
-learning_rate = 0.01
-
+learning_rate_range = np.arange(0.1, 0.6, 0.1)
+hidden_size_range = np.arange(1,7,1)
+num_epochs = 100
 input_size = 1
-hidden_size = 3
 num_layers = 1
-
 num_classes = 1
 
-# Create LSTM object
-lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers)
+# Print each 10th epoch value
+epoch_print_interval = 10
 
-# Mean squared error loss function defined
-loss_fn = torch.nn.MSELoss()   
-# Adam optimizer is used 
-optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
+# Initialize counter 
+i = 1
 
+for learning_rate in learning_rate_range:
+        
+    for hidden_size in hidden_size_range:
+        
 
-nn_log = {"train_loss": [], "test_loss": []}
+        # Create LSTM object
+        lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers)
 
-
-# Train the model
-for epoch in range(num_epochs):
-    y_pred = lstm(x_train)
-    optimizer.zero_grad()
-
-    
-    # Get loss function
-    loss = loss_fn(y_pred, y_train)
-    
-    # Make prediciton
-    y_test_pred = lstm(x_test) 
-    # Get loss function
-    test_loss = loss_fn(y_test_pred, y_test)
-
-    # Backward propagate
-    loss.backward()
-    
-    optimizer.step()
-
-    # Save loss
-    nn_log["train_loss"].append(loss.item())
-    nn_log["test_loss"].append(test_loss.item())
-
-    # Print loss
-    if epoch % 10 == 0:
-        print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
-
-# Plot loss by epochs
-plt.plot(nn_log["train_loss"])
-plt.plot(nn_log['test_loss'])
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(["Train loss", "Test loss"], loc='upper left')
-plt.show()
+        # Mean squared error loss function defined
+        loss_fn = torch.nn.MSELoss()   
+        # Adam optimizer is used 
+        optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
 
 
-# Plot train and predict data
-train_predict = lstm(x_data)
+        nn_log = {"train_loss": [], "test_loss": []}
 
-data_predict = train_predict.data.numpy()
-dataY_plot = y_data.data.numpy()
 
-data_predict = scaler.inverse_transform(data_predict)
-dataY_plot = scaler.inverse_transform(dataY_plot)
+        # Train the model
+        for epoch in range(num_epochs):
+            y_pred = lstm(x_train)
+            optimizer.zero_grad()
 
-plt.axvline(x=train_size, c='r', linestyle='--')
+            
+            # Get loss function
+            loss = loss_fn(y_pred, y_train)
+            
+            # Make prediciton
+            y_test_pred = lstm(x_test) 
+            # Get loss function
+            test_loss = loss_fn(y_test_pred, y_test)
 
-plt.plot(dataY_plot)
-plt.plot(data_predict)
-plt.suptitle('Time-Series Prediction')
-plt.show()
+            # Backward propagate
+            loss.backward()
+            
+            optimizer.step()
+
+            # Save loss
+            nn_log["train_loss"].append(loss.item())
+            nn_log["test_loss"].append(test_loss.item())
+
+            # Print loss
+            if epoch % 10 == 0:
+                print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
+
+        # Plot loss by epochs
+        plt.plot(nn_log["train_loss"])
+        plt.plot(nn_log['test_loss'])
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(["Train loss", "Test loss"], loc='upper left')
+        plt.savefig("passenger-graphs/{}_loss.png".format(i))
+        # plt.show()
+        plt.clf()
+
+
+        # Plot train and predict data
+        train_predict = lstm(x_data)
+
+        data_predict = train_predict.data.numpy()
+        dataY_plot = y_data.data.numpy()
+
+        data_predict = scaler.inverse_transform(data_predict)
+        dataY_plot = scaler.inverse_transform(dataY_plot)
+
+        plt.axvline(x=train_size, c='r', linestyle='--')
+
+        plt.plot(dataY_plot)
+        plt.plot(data_predict)
+        plt.suptitle('Time-Series Prediction')
+        plt.savefig("passenger-graphs/{}_pred.png".format(i))
+
+        plt.clf()
+        # plt.show()
+
+
+        file_object = open('passenger-graphs/tests.txt', 'a')
+        file_object.write("Test {}".format(i))
+        file_object.write("\n Epochs: {}".format(num_epochs))
+        file_object.write("\n Hidden size: {}".format(hidden_size))
+        file_object.write("\n Num layers: {}".format(num_layers))
+        file_object.write("\n Learning rate: {}".format(learning_rate))
+        file_object.write("\n Num classes: {}".format(num_classes))
+        file_object.write("\n Input size: {}".format(input_size))
+        file_object.write("\n Loss: ")
+       
+        for ep in np.arange(0, num_epochs, epoch_print_interval):
+            file_object.write("\n   Epoch: {}, Train loss: {}, Test loss: {}".format(ep, nn_log["train_loss"][ep], nn_log["test_loss"][ep]))
+        file_object.write("\n \n")
+        file_object.close()
+
+        i += 1
+
+
