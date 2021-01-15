@@ -1,0 +1,630 @@
+Test 1
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 193.029296875
+ Hidden size: 1
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.5153945684432983, Test loss: 0.42521408200263977
+   Epoch: 100, Train loss: 0.016404805704951286, Test loss: 0.8871277570724487
+   Epoch: 200, Train loss: 0.01608843170106411, Test loss: 0.8469241261482239
+   Epoch: 300, Train loss: 0.012199954129755497, Test loss: 0.6186633110046387
+   Epoch: 400, Train loss: 0.0008588393684476614, Test loss: 0.363509863615036
+   Epoch: 500, Train loss: 0.0008402708335779607, Test loss: 0.4365217089653015
+   Epoch: 600, Train loss: 0.0008305802475661039, Test loss: 0.4728526771068573
+   Epoch: 700, Train loss: 0.000820266839582473, Test loss: 0.5086793303489685
+   Epoch: 800, Train loss: 0.0008100811974145472, Test loss: 0.5336940884590149
+   Epoch: 900, Train loss: 0.0008005765848793089, Test loss: 0.5579425096511841
+ 
+Test 2
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 63.717952728271484
+ Hidden size: 2
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.4324415922164917, Test loss: 0.2566263973712921
+   Epoch: 100, Train loss: 0.011429891921579838, Test loss: 0.640370786190033
+   Epoch: 200, Train loss: 0.003945623524487019, Test loss: 0.3329252004623413
+   Epoch: 300, Train loss: 0.0007935175090096891, Test loss: 0.18880541622638702
+   Epoch: 400, Train loss: 0.0007865389343351126, Test loss: 0.18471232056617737
+   Epoch: 500, Train loss: 0.0007862034253776073, Test loss: 0.18478040397167206
+   Epoch: 600, Train loss: 0.0007858375902287662, Test loss: 0.18480198085308075
+   Epoch: 700, Train loss: 0.000785446260124445, Test loss: 0.18480251729488373
+   Epoch: 800, Train loss: 0.0007850315305404365, Test loss: 0.18479280173778534
+   Epoch: 900, Train loss: 0.0007845942745916545, Test loss: 0.18478481471538544
+ 
+Test 3
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 227.85882568359375
+ Hidden size: 3
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.14929671585559845, Test loss: 0.45546671748161316
+   Epoch: 100, Train loss: 0.002291630022227764, Test loss: 0.3539986312389374
+   Epoch: 200, Train loss: 0.000803113158326596, Test loss: 0.2979547083377838
+   Epoch: 300, Train loss: 0.0007812449475750327, Test loss: 0.3115678131580353
+   Epoch: 400, Train loss: 0.0007688885671086609, Test loss: 0.3462517559528351
+   Epoch: 500, Train loss: 0.0007573988405056298, Test loss: 0.40507692098617554
+   Epoch: 600, Train loss: 0.000745354569517076, Test loss: 0.47914811968803406
+   Epoch: 700, Train loss: 0.0007371906540356576, Test loss: 0.5273888111114502
+   Epoch: 800, Train loss: 0.0007239562110044062, Test loss: 0.6933693885803223
+   Epoch: 900, Train loss: 0.0007097105262801051, Test loss: 0.927695095539093
+ 
+Test 4
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 43.957218170166016
+ Hidden size: 4
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.628808319568634, Test loss: 0.2525583505630493
+   Epoch: 100, Train loss: 0.0031321747228503227, Test loss: 0.2270965576171875
+   Epoch: 200, Train loss: 0.0009373287903144956, Test loss: 0.22375786304473877
+   Epoch: 300, Train loss: 0.0008889698656275868, Test loss: 0.20455697178840637
+   Epoch: 400, Train loss: 0.0008569638594053686, Test loss: 0.19270524382591248
+   Epoch: 500, Train loss: 0.0008319190819747746, Test loss: 0.184482604265213
+   Epoch: 600, Train loss: 0.0008106713066808879, Test loss: 0.1785612851381302
+   Epoch: 700, Train loss: 0.0007920904317870736, Test loss: 0.17471840977668762
+   Epoch: 800, Train loss: 0.000775868771597743, Test loss: 0.1734381914138794
+   Epoch: 900, Train loss: 0.0007619494572281837, Test loss: 0.17551778256893158
+ 
+Test 5
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 76.78675079345703
+ Hidden size: 5
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.41560083627700806, Test loss: 0.25317543745040894
+   Epoch: 100, Train loss: 0.0150771988555789, Test loss: 0.8239331841468811
+   Epoch: 200, Train loss: 0.0009184452355839312, Test loss: 0.2924606204032898
+   Epoch: 300, Train loss: 0.0007795332930982113, Test loss: 0.2326532006263733
+   Epoch: 400, Train loss: 0.000756014313083142, Test loss: 0.22761380672454834
+   Epoch: 500, Train loss: 0.0007480065105482936, Test loss: 0.23322467505931854
+   Epoch: 600, Train loss: 0.0007403515628539026, Test loss: 0.22946356236934662
+   Epoch: 700, Train loss: 0.000735171081032604, Test loss: 0.22900494933128357
+   Epoch: 800, Train loss: 0.0007377901929430664, Test loss: 0.23603390157222748
+   Epoch: 900, Train loss: 0.0007335072732530534, Test loss: 0.23049212992191315
+ 
+Test 6
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 52.08967208862305
+ Hidden size: 6
+ Num layers: 1
+ Learning rate: 0.1
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.9396191835403442, Test loss: 0.5366513133049011
+   Epoch: 100, Train loss: 0.011134742759168148, Test loss: 0.5909177660942078
+   Epoch: 200, Train loss: 0.0010659921681508422, Test loss: 0.18791186809539795
+   Epoch: 300, Train loss: 0.0007921166252344847, Test loss: 0.16466931998729706
+   Epoch: 400, Train loss: 0.0007900480413809419, Test loss: 0.16750448942184448
+   Epoch: 500, Train loss: 0.0007885473314672709, Test loss: 0.16975408792495728
+   Epoch: 600, Train loss: 0.000787227472756058, Test loss: 0.171514093875885
+   Epoch: 700, Train loss: 0.0007859276374801993, Test loss: 0.17299290001392365
+   Epoch: 800, Train loss: 0.0007845866493880749, Test loss: 0.1743619590997696
+   Epoch: 900, Train loss: 0.0007831758121028543, Test loss: 0.17574989795684814
+ 
+Test 7
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 178.24928283691406
+ Hidden size: 1
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.039042823016643524, Test loss: 1.0213208198547363
+   Epoch: 100, Train loss: 0.015471703372895718, Test loss: 0.843295156955719
+   Epoch: 200, Train loss: 0.0010298175038769841, Test loss: 0.17557507753372192
+   Epoch: 300, Train loss: 0.0008096168749034405, Test loss: 0.33755266666412354
+   Epoch: 400, Train loss: 0.0007960893562994897, Test loss: 0.3781921863555908
+   Epoch: 500, Train loss: 0.0007854143623262644, Test loss: 0.4143050014972687
+   Epoch: 600, Train loss: 0.0007768855430185795, Test loss: 0.45186981558799744
+   Epoch: 700, Train loss: 0.0007702549337409437, Test loss: 0.4891359806060791
+   Epoch: 800, Train loss: 0.0014659265289083123, Test loss: 0.4808329939842224
+   Epoch: 900, Train loss: 0.0007627446320839226, Test loss: 0.5247421860694885
+ 
+Test 8
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 92.64827728271484
+ Hidden size: 2
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.0870218500494957, Test loss: 0.622343897819519
+   Epoch: 100, Train loss: 0.01660168543457985, Test loss: 0.916847288608551
+   Epoch: 200, Train loss: 0.0123634934425354, Test loss: 0.6976808905601501
+   Epoch: 300, Train loss: 0.0007660139817744493, Test loss: 0.2412973791360855
+   Epoch: 400, Train loss: 0.000760181515943259, Test loss: 0.24086986482143402
+   Epoch: 500, Train loss: 0.000786775432061404, Test loss: 0.2332920879125595
+   Epoch: 600, Train loss: 0.0007603056728839874, Test loss: 0.2472044676542282
+   Epoch: 700, Train loss: 0.000853634555824101, Test loss: 0.24874980747699738
+   Epoch: 800, Train loss: 0.0007680741837248206, Test loss: 0.25123274326324463
+   Epoch: 900, Train loss: 0.0007580432575196028, Test loss: 0.2573314607143402
+ 
+Test 9
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 59.305320739746094
+ Hidden size: 3
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.6855487823486328, Test loss: 0.19733837246894836
+   Epoch: 100, Train loss: 0.011510134674608707, Test loss: 0.671210765838623
+   Epoch: 200, Train loss: 0.00080582604277879, Test loss: 0.19113022089004517
+   Epoch: 300, Train loss: 0.00080060341861099, Test loss: 0.18700887262821198
+   Epoch: 400, Train loss: 0.0007972920429892838, Test loss: 0.18510282039642334
+   Epoch: 500, Train loss: 0.000794038234744221, Test loss: 0.1832105964422226
+   Epoch: 600, Train loss: 0.0007910176645964384, Test loss: 0.18146732449531555
+   Epoch: 700, Train loss: 0.0007883462822064757, Test loss: 0.17997504770755768
+   Epoch: 800, Train loss: 0.0007860786863602698, Test loss: 0.17881689965724945
+   Epoch: 900, Train loss: 0.0007842124323360622, Test loss: 0.17805598676204681
+ 
+Test 10
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 20.021421432495117
+ Hidden size: 4
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.6198099851608276, Test loss: 0.19953863322734833
+   Epoch: 100, Train loss: 0.014218680560588837, Test loss: 0.7145028114318848
+   Epoch: 200, Train loss: 0.0008511077030561864, Test loss: 0.0731702446937561
+   Epoch: 300, Train loss: 0.0008075735531747341, Test loss: 0.09616874903440475
+   Epoch: 400, Train loss: 0.0007999269291758537, Test loss: 0.1081169992685318
+   Epoch: 500, Train loss: 0.0007967193960212171, Test loss: 0.11382519453763962
+   Epoch: 600, Train loss: 0.0007942459778860211, Test loss: 0.11734341830015182
+   Epoch: 700, Train loss: 0.0007920637726783752, Test loss: 0.12060350179672241
+   Epoch: 800, Train loss: 0.0008393229800276458, Test loss: 0.10164550691843033
+   Epoch: 900, Train loss: 0.0007889019325375557, Test loss: 0.11464308947324753
+ 
+Test 11
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 30.06093406677246
+ Hidden size: 5
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.3154650926589966, Test loss: 0.32440146803855896
+   Epoch: 100, Train loss: 0.010782914236187935, Test loss: 0.5139622092247009
+   Epoch: 200, Train loss: 0.0008077304810285568, Test loss: 0.08782760053873062
+   Epoch: 300, Train loss: 0.0007927310653030872, Test loss: 0.0970386415719986
+   Epoch: 400, Train loss: 0.0007894816808402538, Test loss: 0.10140790045261383
+   Epoch: 500, Train loss: 0.000787324970588088, Test loss: 0.10498151183128357
+   Epoch: 600, Train loss: 0.0007854453870095313, Test loss: 0.10803315043449402
+   Epoch: 700, Train loss: 0.0007834796560928226, Test loss: 0.1107853353023529
+   Epoch: 800, Train loss: 0.0007812507101334631, Test loss: 0.11346687376499176
+   Epoch: 900, Train loss: 0.0007786632049828768, Test loss: 0.11629028618335724
+ 
+Test 12
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 15.621119499206543
+ Hidden size: 6
+ Num layers: 1
+ Learning rate: 0.2
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.366498589515686, Test loss: 0.3124273717403412
+   Epoch: 100, Train loss: 0.0008993719820864499, Test loss: 0.06151309981942177
+   Epoch: 200, Train loss: 0.000815276987850666, Test loss: 0.07024490088224411
+   Epoch: 300, Train loss: 0.0007935363100841641, Test loss: 0.08651388436555862
+   Epoch: 400, Train loss: 0.0008093107026070356, Test loss: 0.07075900584459305
+   Epoch: 500, Train loss: 0.000783895724453032, Test loss: 0.0891912505030632
+   Epoch: 600, Train loss: 0.0007714529638178647, Test loss: 0.10269883275032043
+   Epoch: 700, Train loss: 0.0007569075096398592, Test loss: 0.11518960446119308
+   Epoch: 800, Train loss: 0.0007648252067156136, Test loss: 0.12174219638109207
+   Epoch: 900, Train loss: 0.0007430328405462205, Test loss: 0.1294918656349182
+ 
+Test 13
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 161.1075897216797
+ Hidden size: 1
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.350140929222107, Test loss: 0.2868707478046417
+   Epoch: 100, Train loss: 0.01659446954727173, Test loss: 0.9164859652519226
+   Epoch: 200, Train loss: 0.016591442748904228, Test loss: 0.9182034134864807
+   Epoch: 300, Train loss: 0.016589438542723656, Test loss: 0.9174876809120178
+   Epoch: 400, Train loss: 0.016586633399128914, Test loss: 0.9165282249450684
+   Epoch: 500, Train loss: 0.016582679003477097, Test loss: 0.9152145385742188
+   Epoch: 600, Train loss: 0.01657687872648239, Test loss: 0.9133573174476624
+   Epoch: 700, Train loss: 0.016567707061767578, Test loss: 0.9105625152587891
+   Epoch: 800, Train loss: 0.016551237553358078, Test loss: 0.9058750867843628
+   Epoch: 900, Train loss: 0.016513779759407043, Test loss: 0.8962718844413757
+ 
+Test 14
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 122.76551055908203
+ Hidden size: 2
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.316140353679657, Test loss: 0.2981746196746826
+   Epoch: 100, Train loss: 0.0008024008711799979, Test loss: 0.210872620344162
+   Epoch: 200, Train loss: 0.0007969851139932871, Test loss: 0.24394303560256958
+   Epoch: 300, Train loss: 0.0007848511449992657, Test loss: 0.24477580189704895
+   Epoch: 400, Train loss: 0.0007826581713743508, Test loss: 0.25794702768325806
+   Epoch: 500, Train loss: 0.000885451037902385, Test loss: 0.2081548571586609
+   Epoch: 600, Train loss: 0.000779841560870409, Test loss: 0.2763995826244354
+   Epoch: 700, Train loss: 0.0015254345489665866, Test loss: 0.28568795323371887
+   Epoch: 800, Train loss: 0.0007736534462310374, Test loss: 0.3365424871444702
+   Epoch: 900, Train loss: 0.0007670614286325872, Test loss: 0.3535379469394684
+ 
+Test 15
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 90.9427719116211
+ Hidden size: 3
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.6766674518585205, Test loss: 0.1894262582063675
+   Epoch: 100, Train loss: 0.0023565241135656834, Test loss: 0.2192535549402237
+   Epoch: 200, Train loss: 0.0007821806357242167, Test loss: 0.2120848447084427
+   Epoch: 300, Train loss: 0.0007812617113813758, Test loss: 0.21154215931892395
+   Epoch: 400, Train loss: 0.0007857905002310872, Test loss: 0.198113813996315
+   Epoch: 500, Train loss: 0.0007782001630403101, Test loss: 0.220341756939888
+   Epoch: 600, Train loss: 0.0007779474253766239, Test loss: 0.22046993672847748
+   Epoch: 700, Train loss: 0.0007787694921717048, Test loss: 0.23155447840690613
+   Epoch: 800, Train loss: 0.000776195025537163, Test loss: 0.23216962814331055
+   Epoch: 900, Train loss: 0.0014879786176607013, Test loss: 0.233110710978508
+ 
+Test 16
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 80.40216064453125
+ Hidden size: 4
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.45567023754119873, Test loss: 0.25567951798439026
+   Epoch: 100, Train loss: 0.0010816465364769101, Test loss: 0.23160132765769958
+   Epoch: 200, Train loss: 0.0008041021064855158, Test loss: 0.21022188663482666
+   Epoch: 300, Train loss: 0.0007995666819624603, Test loss: 0.20746071636676788
+   Epoch: 400, Train loss: 0.0007964164251461625, Test loss: 0.20411409437656403
+   Epoch: 500, Train loss: 0.0007860103505663574, Test loss: 0.21428297460079193
+   Epoch: 600, Train loss: 0.0007838463643565774, Test loss: 0.21194735169410706
+   Epoch: 700, Train loss: 0.0007824833155609667, Test loss: 0.21027646958827972
+   Epoch: 800, Train loss: 0.0007882439531385899, Test loss: 0.20668119192123413
+   Epoch: 900, Train loss: 0.0007785503985360265, Test loss: 0.222232848405838
+ 
+Test 17
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 59.13986587524414
+ Hidden size: 5
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.2095746994018555, Test loss: 0.28548458218574524
+   Epoch: 100, Train loss: 0.01385131012648344, Test loss: 0.766678512096405
+   Epoch: 200, Train loss: 0.0008047064184211195, Test loss: 0.16269199550151825
+   Epoch: 300, Train loss: 0.0007989146979525685, Test loss: 0.16628360748291016
+   Epoch: 400, Train loss: 0.0008066068985499442, Test loss: 0.14774663746356964
+   Epoch: 500, Train loss: 0.0007906738319434226, Test loss: 0.1627541482448578
+   Epoch: 600, Train loss: 0.000788762466982007, Test loss: 0.167245551943779
+   Epoch: 700, Train loss: 0.0007874895236454904, Test loss: 0.16827847063541412
+   Epoch: 800, Train loss: 0.0008036546059884131, Test loss: 0.15004174411296844
+   Epoch: 900, Train loss: 0.0007879644399508834, Test loss: 0.17215068638324738
+ 
+Test 18
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 78.41290283203125
+ Hidden size: 6
+ Num layers: 1
+ Learning rate: 0.30000000000000004
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.6585822105407715, Test loss: 0.3836989104747772
+   Epoch: 100, Train loss: 0.015559377148747444, Test loss: 0.8115343451499939
+   Epoch: 200, Train loss: 0.0007800968014635146, Test loss: 0.18672554194927216
+   Epoch: 300, Train loss: 0.0007795449928380549, Test loss: 0.18286658823490143
+   Epoch: 400, Train loss: 0.0007794322445988655, Test loss: 0.18336652219295502
+   Epoch: 500, Train loss: 0.000779307505581528, Test loss: 0.18430446088314056
+   Epoch: 600, Train loss: 0.001598993199877441, Test loss: 0.16692663729190826
+   Epoch: 700, Train loss: 0.0007777218124829233, Test loss: 0.19507819414138794
+   Epoch: 800, Train loss: 0.0007774769328534603, Test loss: 0.19655388593673706
+   Epoch: 900, Train loss: 0.0008580007124692202, Test loss: 0.16487067937850952
+ 
+Test 19
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 169.1848907470703
+ Hidden size: 1
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.028453409671783447, Test loss: 0.9129548072814941
+   Epoch: 100, Train loss: 0.016610419377684593, Test loss: 0.9191382527351379
+   Epoch: 200, Train loss: 0.016605230048298836, Test loss: 0.9230384826660156
+   Epoch: 300, Train loss: 0.016605228185653687, Test loss: 0.9230186343193054
+   Epoch: 400, Train loss: 0.016605228185653687, Test loss: 0.9230180382728577
+   Epoch: 500, Train loss: 0.016605228185653687, Test loss: 0.9230173826217651
+   Epoch: 600, Train loss: 0.016605228185653687, Test loss: 0.923016369342804
+   Epoch: 700, Train loss: 0.016605228185653687, Test loss: 0.9230153560638428
+   Epoch: 800, Train loss: 0.016605228185653687, Test loss: 0.9230141639709473
+   Epoch: 900, Train loss: 0.016605228185653687, Test loss: 0.9230131506919861
+ 
+Test 20
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 102.97522735595703
+ Hidden size: 2
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.8543006181716919, Test loss: 0.1967460960149765
+   Epoch: 100, Train loss: 0.016443422064185143, Test loss: 0.8991485238075256
+   Epoch: 200, Train loss: 0.006695848423987627, Test loss: 0.40917885303497314
+   Epoch: 300, Train loss: 0.0007763331523165107, Test loss: 0.25216948986053467
+   Epoch: 400, Train loss: 0.0007761276210658252, Test loss: 0.2541819214820862
+   Epoch: 500, Train loss: 0.0007760112057439983, Test loss: 0.25532546639442444
+   Epoch: 600, Train loss: 0.0008908581803552806, Test loss: 0.22045046091079712
+   Epoch: 700, Train loss: 0.0007756796549074352, Test loss: 0.2669247090816498
+   Epoch: 800, Train loss: 0.0007755859405733645, Test loss: 0.26823800802230835
+   Epoch: 900, Train loss: 0.0007966766133904457, Test loss: 0.27441656589508057
+ 
+Test 21
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 169.17478942871094
+ Hidden size: 3
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.9969285726547241, Test loss: 0.22908124327659607
+   Epoch: 100, Train loss: 0.016610752791166306, Test loss: 0.9188794493675232
+   Epoch: 200, Train loss: 0.016605215147137642, Test loss: 0.9228894114494324
+   Epoch: 300, Train loss: 0.016605215147137642, Test loss: 0.9228856563568115
+   Epoch: 400, Train loss: 0.016605213284492493, Test loss: 0.9228846430778503
+   Epoch: 500, Train loss: 0.016605213284492493, Test loss: 0.9228829145431519
+   Epoch: 600, Train loss: 0.016605213284492493, Test loss: 0.9228813052177429
+   Epoch: 700, Train loss: 0.016605213284492493, Test loss: 0.922879159450531
+   Epoch: 800, Train loss: 0.016605213284492493, Test loss: 0.9228771328926086
+   Epoch: 900, Train loss: 0.016605213284492493, Test loss: 0.9228746891021729
+ 
+Test 22
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 99.36302185058594
+ Hidden size: 4
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.5338793396949768, Test loss: 0.24600614607334137
+   Epoch: 100, Train loss: 0.0007935708272270858, Test loss: 0.24362264573574066
+   Epoch: 200, Train loss: 0.0007814662531018257, Test loss: 0.228201761841774
+   Epoch: 300, Train loss: 0.0007806427893228829, Test loss: 0.22741474211215973
+   Epoch: 400, Train loss: 0.0007778627332299948, Test loss: 0.23867455124855042
+   Epoch: 500, Train loss: 0.0007775662234053016, Test loss: 0.23752622306346893
+   Epoch: 600, Train loss: 0.0007986964774318039, Test loss: 0.23211424052715302
+   Epoch: 700, Train loss: 0.0007762106833979487, Test loss: 0.25015661120414734
+   Epoch: 800, Train loss: 0.0008785604150034487, Test loss: 0.22219575941562653
+   Epoch: 900, Train loss: 0.00077613047324121, Test loss: 0.2595512568950653
+ 
+Test 23
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 65.52610778808594
+ Hidden size: 5
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.512088418006897, Test loss: 0.20794247090816498
+   Epoch: 100, Train loss: 0.004372293129563332, Test loss: 0.20786231756210327
+   Epoch: 200, Train loss: 0.0007989198784343898, Test loss: 0.11766113340854645
+   Epoch: 300, Train loss: 0.0007834663265384734, Test loss: 0.14343413710594177
+   Epoch: 400, Train loss: 0.0007811861578375101, Test loss: 0.15142343938350677
+   Epoch: 500, Train loss: 0.0007797168218530715, Test loss: 0.15436437726020813
+   Epoch: 600, Train loss: 0.000782733375672251, Test loss: 0.15093357861042023
+   Epoch: 700, Train loss: 0.0007765295449644327, Test loss: 0.17078836262226105
+   Epoch: 800, Train loss: 0.0007752628298476338, Test loss: 0.17422135174274445
+   Epoch: 900, Train loss: 0.0007794362027198076, Test loss: 0.1875581443309784
+ 
+Test 24
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 74.21414947509766
+ Hidden size: 6
+ Num layers: 1
+ Learning rate: 0.4
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.1364014148712158, Test loss: 0.24098874628543854
+   Epoch: 100, Train loss: 0.010903947986662388, Test loss: 0.5381611585617065
+   Epoch: 200, Train loss: 0.0008483517449349165, Test loss: 0.10771113634109497
+   Epoch: 300, Train loss: 0.0008110321941785514, Test loss: 0.136062353849411
+   Epoch: 400, Train loss: 0.000793144223280251, Test loss: 0.1634555459022522
+   Epoch: 500, Train loss: 0.000787558441516012, Test loss: 0.18034085631370544
+   Epoch: 600, Train loss: 0.0007858712924644351, Test loss: 0.18735267221927643
+   Epoch: 700, Train loss: 0.0007848742534406483, Test loss: 0.19002825021743774
+   Epoch: 800, Train loss: 0.0014442338142544031, Test loss: 0.1663517951965332
+   Epoch: 900, Train loss: 0.0007836946751922369, Test loss: 0.1965932995080948
+ 
+Test 25
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 169.1906280517578
+ Hidden size: 1
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.3542782962322235, Test loss: 0.24471209943294525
+   Epoch: 100, Train loss: 0.01661083661019802, Test loss: 0.9191312193870544
+   Epoch: 200, Train loss: 0.016605215147137642, Test loss: 0.9231628179550171
+   Epoch: 300, Train loss: 0.016605215147137642, Test loss: 0.9231690168380737
+   Epoch: 400, Train loss: 0.016605215147137642, Test loss: 0.9231688380241394
+   Epoch: 500, Train loss: 0.01660521700978279, Test loss: 0.9231685996055603
+   Epoch: 600, Train loss: 0.01660521700978279, Test loss: 0.9231682419776917
+   Epoch: 700, Train loss: 0.01660521700978279, Test loss: 0.9231679439544678
+   Epoch: 800, Train loss: 0.01660521700978279, Test loss: 0.9231675267219543
+   Epoch: 900, Train loss: 0.016605215147137642, Test loss: 0.9231669306755066
+ 
+Test 26
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 81.02015686035156
+ Hidden size: 2
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.5418394804000854, Test loss: 0.3474997282028198
+   Epoch: 100, Train loss: 0.013245116919279099, Test loss: 0.6517258882522583
+   Epoch: 200, Train loss: 0.0008408171706832945, Test loss: 0.14078767597675323
+   Epoch: 300, Train loss: 0.0008030474418774247, Test loss: 0.17868153750896454
+   Epoch: 400, Train loss: 0.0007906301761977375, Test loss: 0.2018807977437973
+   Epoch: 500, Train loss: 0.0007862102938815951, Test loss: 0.2092972844839096
+   Epoch: 600, Train loss: 0.00115448166616261, Test loss: 0.2078569382429123
+   Epoch: 700, Train loss: 0.0007834284333512187, Test loss: 0.22243598103523254
+   Epoch: 800, Train loss: 0.0007796153659000993, Test loss: 0.23514477908611298
+   Epoch: 900, Train loss: 0.0007781500462442636, Test loss: 0.23863965272903442
+ 
+Test 27
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 103.68218994140625
+ Hidden size: 3
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.066504955291748, Test loss: 0.23041947185993195
+   Epoch: 100, Train loss: 0.0012129753595218062, Test loss: 0.166340172290802
+   Epoch: 200, Train loss: 0.0007804858614690602, Test loss: 0.21807187795639038
+   Epoch: 300, Train loss: 0.0007806522189639509, Test loss: 0.22095072269439697
+   Epoch: 400, Train loss: 0.0007790078525431454, Test loss: 0.2346094250679016
+   Epoch: 500, Train loss: 0.0007776771672070026, Test loss: 0.24045158922672272
+   Epoch: 600, Train loss: 0.0008133591036312282, Test loss: 0.23334786295890808
+   Epoch: 700, Train loss: 0.0007759896689094603, Test loss: 0.25901368260383606
+   Epoch: 800, Train loss: 0.0008071879856288433, Test loss: 0.2315351516008377
+   Epoch: 900, Train loss: 0.0007755837868899107, Test loss: 0.2720990478992462
+ 
+Test 28
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 40.28054428100586
+ Hidden size: 4
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.7513555884361267, Test loss: 0.20949871838092804
+   Epoch: 100, Train loss: 0.01659558340907097, Test loss: 0.9015012383460999
+   Epoch: 200, Train loss: 0.016592251136898994, Test loss: 0.897938072681427
+   Epoch: 300, Train loss: 0.016590863466262817, Test loss: 0.8965577483177185
+   Epoch: 400, Train loss: 0.016588833183050156, Test loss: 0.8945807218551636
+   Epoch: 500, Train loss: 0.01658574491739273, Test loss: 0.8917127251625061
+   Epoch: 600, Train loss: 0.01658068597316742, Test loss: 0.8873093724250793
+   Epoch: 700, Train loss: 0.016571052372455597, Test loss: 0.8797447681427002
+   Epoch: 800, Train loss: 0.016546018421649933, Test loss: 0.8633288741111755
+   Epoch: 900, Train loss: 0.016363684087991714, Test loss: 0.7900933027267456
+ 
+Test 29
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 102.28956604003906
+ Hidden size: 5
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 0.854684054851532, Test loss: 0.21601712703704834
+   Epoch: 100, Train loss: 0.016553616151213646, Test loss: 0.8886706829071045
+   Epoch: 200, Train loss: 0.016268113628029823, Test loss: 0.8640881180763245
+   Epoch: 300, Train loss: 0.0008800466312095523, Test loss: 0.22237198054790497
+   Epoch: 400, Train loss: 0.0007903951918706298, Test loss: 0.23687565326690674
+   Epoch: 500, Train loss: 0.0007830049726180732, Test loss: 0.2421666830778122
+   Epoch: 600, Train loss: 0.0007792322430759668, Test loss: 0.24558189511299133
+   Epoch: 700, Train loss: 0.0007790144882164896, Test loss: 0.25801530480384827
+   Epoch: 800, Train loss: 0.0007764367619529366, Test loss: 0.262040913105011
+   Epoch: 900, Train loss: 0.0007984464755281806, Test loss: 0.23902085423469543
+ 
+Test 30
+ Test size: 0.2
+ Epochs: 1000
+ Prediction accuracy: 86.03968811035156
+ Hidden size: 6
+ Num layers: 1
+ Learning rate: 0.5
+ Num classes: 1
+ Input size: 1
+ Loss: 
+   Epoch: 0, Train loss: 1.762560486793518, Test loss: 0.4371923506259918
+   Epoch: 100, Train loss: 0.001097321044653654, Test loss: 0.06300049275159836
+   Epoch: 200, Train loss: 0.0008579881396144629, Test loss: 0.08110436797142029
+   Epoch: 300, Train loss: 0.000814308354165405, Test loss: 0.11088791489601135
+   Epoch: 400, Train loss: 0.001023301505483687, Test loss: 0.07385595887899399
+   Epoch: 500, Train loss: 0.0008268465753644705, Test loss: 0.14331361651420593
+   Epoch: 600, Train loss: 0.0007900596829131246, Test loss: 0.19680501520633698
+   Epoch: 700, Train loss: 0.0007846286753192544, Test loss: 0.206878662109375
+   Epoch: 800, Train loss: 0.0007815035642124712, Test loss: 0.2107088714838028
+   Epoch: 900, Train loss: 0.0007839167956262827, Test loss: 0.21868637204170227
+ 
