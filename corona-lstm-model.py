@@ -236,8 +236,10 @@ for learning_rate in learning_rate_range:
 
 
         # Calculate mean accuracy 
-        y_pred = lstm(x_test).detach().numpy()
-        test_accuracy = np.mean((abs(y_test.detach().numpy() - y_pred) / y_test.detach().numpy()) * 100)
+
+        y_pred = scaler.inverse_transform(lstm(x_test).detach().numpy())
+        y_real = scaler.inverse_transform(y_test.detach().numpy())
+        test_accuracy = np.mean((abs(y_real - y_pred) / y_real) * 100)
         # print(f'Accuracy: {test_accuracy}')
 
         file_object = open('{}/tests.txt'.format(test_folder), 'a')
