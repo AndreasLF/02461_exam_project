@@ -205,7 +205,7 @@ for learning_rate in learning_rate_range:
         plt.ylabel('loss')
         plt.xlabel('epoch')
         plt.legend(["Train loss", "Test loss"], loc='upper left')
-        plt.savefig("passenger-graphs/{}_loss.png".format(i))
+        plt.savefig("corona-graphs/{}_loss.png".format(i))
         # plt.show()
         plt.clf()
 
@@ -224,13 +224,13 @@ for learning_rate in learning_rate_range:
         plt.plot(dataY_plot)
         plt.plot(data_predict)
         plt.suptitle('Time-Series Prediction')
-        plt.savefig("passenger-graphs/{}_pred.png".format(i))
+        plt.savefig("corona-graphs/{}_pred.png".format(i))
 
         plt.clf()
         # plt.show()
 
 
-        file_object = open('passenger-graphs/tests.txt', 'a')
+        file_object = open('corona-graphs/tests.txt', 'a')
         file_object.write("Test {}".format(i))
         file_object.write("\n Epochs: {}".format(num_epochs))
         file_object.write("\n Hidden size: {}".format(hidden_size))
