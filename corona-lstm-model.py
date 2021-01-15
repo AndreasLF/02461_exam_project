@@ -15,13 +15,13 @@ from extract_ssi_data import *
 
 print("GPU Driver is installed: "+str(torch.cuda.is_available()))
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 
     ### Variables ###
 
 # Percentage of test size
 test_size_pct = 0.20
-num_epochs = 230
+num_epochs = 1000
 learning_rate = 0.05
 input_size = 1
 hidden_size = 3
