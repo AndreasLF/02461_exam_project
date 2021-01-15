@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 # Import floor function from math module
 from math import floor
+from sklearn.metrics import accuracy_score
 
 from extract_ssi_data import *
 
@@ -22,9 +23,9 @@ device = torch.device('cpu')
 # Percentage of test size
 test_size_pct = 0.20
 num_epochs = 1000
-learning_rate = 0.05
+learning_rate = 0.04
 input_size = 1
-hidden_size = 3
+hidden_size = 6
 num_layers = 1
 seq_length = 14
 num_classes = 1
@@ -36,7 +37,7 @@ hidden_size_range = np.arange(1,7,1)
 # Print each 10th epoch value
 epoch_print_interval = 10
 
-# Initialize counter 
+# Initialize counter
 i = 1
 
 
@@ -156,16 +157,12 @@ y_test = torch.Tensor(np.array(y[train_size:len(y)])).to(device)
 
 # Loop over our desired ranges
 for learning_rate in learning_rate_range:
-        
     for hidden_size in hidden_size_range:
-        
-
         # Create LSTM object
         lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers)
-
         # Mean squared error loss function defined
-        loss_fn = torch.nn.MSELoss()   
-        # Adam optimizer is used 
+        loss_fn = torch.nn.MSELoss()
+        # Adam optimizer is used
         optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
 
 
@@ -177,27 +174,31 @@ for learning_rate in learning_rate_range:
             y_pred = lstm(x_train)
             optimizer.zero_grad()
 
-            
             # Get loss function
             loss = loss_fn(y_pred, y_train)
-            
+
             # Make prediciton
-            y_test_pred = lstm(x_test) 
+            y_test_pred = lstm(x_test)
             # Get loss function
             test_loss = loss_fn(y_test_pred, y_test)
 
+            # test_accuracy = np.mean(y_test.detach().numpy() == p_test)
+
             # Backward propagate
             loss.backward()
-            
+
             optimizer.step()
 
             # Save loss
             nn_log["train_loss"].append(loss.item())
             nn_log["test_loss"].append(test_loss.item())
+            # Save accuracy
+            # nn_log["accuracy"].append(test_accuracy*100)
 
             # Print loss
             if epoch % 10 == 0:
                 print("Epoch: %d, Train loss: %1.5f, Test loss: %1.5f" % (epoch, loss.item(), test_loss.item()))
+
 
         # Plot loss by epochs
         plt.plot(nn_log["train_loss"])
@@ -205,14 +206,12 @@ for learning_rate in learning_rate_range:
         plt.ylabel('loss')
         plt.xlabel('epoch')
         plt.legend(["Train loss", "Test loss"], loc='upper left')
-        plt.savefig("corona-graphs/{}_loss.png".format(i))
-        # plt.show()
-        plt.clf()
-
+        # plt.savefig("corona-graphs/{}_loss.png".format(i))
+        plt.show()
+        # plt.clf()
 
         # Plot train and predict data
         train_predict = lstm(x_data)
-
         data_predict = train_predict.data.numpy()
         dataY_plot = y_data.data.numpy()
 
@@ -224,10 +223,9 @@ for learning_rate in learning_rate_range:
         plt.plot(dataY_plot)
         plt.plot(data_predict)
         plt.suptitle('Time-Series Prediction')
-        plt.savefig("corona-graphs/{}_pred.png".format(i))
-
-        plt.clf()
-        # plt.show()
+        # plt.savefig("corona-graphs/{}_pred.png".format(i))
+        # plt.clf()
+        plt.show()
 
 
         file_object = open('corona-graphs/tests.txt', 'a')
@@ -239,10 +237,14 @@ for learning_rate in learning_rate_range:
         file_object.write("\n Num classes: {}".format(num_classes))
         file_object.write("\n Input size: {}".format(input_size))
         file_object.write("\n Loss: ")
-       
+
         for ep in np.arange(0, num_epochs, epoch_print_interval):
             file_object.write("\n   Epoch: {}, Train loss: {}, Test loss: {}".format(ep, nn_log["train_loss"][ep], nn_log["test_loss"][ep]))
         file_object.write("\n \n")
         file_object.close()
 
         i += 1
+
+        p_test = lstm(x_test).detach().numpy()
+        test_accuracy = np.mean((abs(y_test.detach().numpy() - p_test) / y_test.detach().numpy()) * 100)
+        print(f'Accuracy: {test_accuracy}')
