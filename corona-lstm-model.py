@@ -14,32 +14,6 @@ from sklearn.metrics import accuracy_score
 
 from extract_ssi_data import *
 
-print("GPU Driver is installed: "+str(torch.cuda.is_available()))
-
-device = torch.device('cpu')
-
-    ### Variables ###
-
-# Percentage of test size
-test_size_pct = 0.20
-num_epochs = 1000
-learning_rate = 0.04
-input_size = 1
-hidden_size = 6
-num_layers = 1
-seq_length = 14
-num_classes = 1
-
-# Range for iteration loop
-learning_rate_range = np.arange(0.1, 0.6, 0.1)
-hidden_size_range = np.arange(1,7,1)
-
-# Print each 10th epoch value
-epoch_print_interval = 10
-
-# Initialize counter
-i = 1
-
 
 class LSTM(nn.Module):
     """LSTM time series prediction model
@@ -102,7 +76,6 @@ class LSTM(nn.Module):
 
         return out
 
-
 def create_sequences(data, seq_length):
     """ Create sequences from the data
 
@@ -125,6 +98,40 @@ def create_sequences(data, seq_length):
         ys.append(y)
     # Convert to ndarrays and return
     return np.array(xs), np.array(ys)
+
+
+print("GPU Driver is installed: "+str(torch.cuda.is_available()))
+
+device = torch.device('cpu')
+
+    ### Variables ###
+
+# Test folder name
+test_folder = "new-corona-graphs"
+
+RANDOM_SEED = 42
+np.random.seed(RANDOM_SEED)
+torch.manual_seed(RANDOM_SEED)
+
+# Percentage of test size
+test_size_pct = 0.20
+num_epochs = 1000
+# learning_rate = 0.04
+input_size = 1
+# hidden_size = 6
+num_layers = 1
+seq_length = 14
+num_classes = 1
+
+# Range for iteration loop
+learning_rate_range = np.arange(0.1, 0.6, 0.1)
+hidden_size_range = np.arange(1,7,1)
+
+# Print each 10th epoch value
+epoch_print_interval = 100
+
+# Initialize counter
+i = 1
 
 
 # Load flight data from seaborn library
@@ -205,10 +212,10 @@ for learning_rate in learning_rate_range:
         plt.plot(nn_log['test_loss'])
         plt.ylabel('loss')
         plt.xlabel('epoch')
-        plt.legend(["Train loss", "Test loss"], loc='upper left')
-        # plt.savefig("corona-graphs/{}_loss.png".format(i))
-        plt.show()
-        # plt.clf()
+        # plt.legend(["Train loss", "Test loss"], loc='upper left')
+        plt.savefig("{}/{}_loss.png".format(test_folder, i))
+        # plt.show()
+        plt.clf()
 
         # Plot train and predict data
         train_predict = lstm(x_data)
@@ -223,14 +230,21 @@ for learning_rate in learning_rate_range:
         plt.plot(dataY_plot)
         plt.plot(data_predict)
         plt.suptitle('Time-Series Prediction')
-        # plt.savefig("corona-graphs/{}_pred.png".format(i))
-        # plt.clf()
-        plt.show()
+        plt.savefig("{}/{}_pred.png".format(test_folder, i))
+        plt.clf()
+        # plt.show()
 
 
-        file_object = open('corona-graphs/tests.txt', 'a')
+        # Calculate mean accuracy 
+        y_pred = lstm(x_test).detach().numpy()
+        test_accuracy = np.mean((abs(y_test.detach().numpy() - y_pred) / y_test.detach().numpy()) * 100)
+        # print(f'Accuracy: {test_accuracy}')
+
+        file_object = open('{}/tests.txt'.format(test_folder), 'a')
         file_object.write("Test {}".format(i))
+        file_object.write("\n Test size: {}".format(test_size_pct))
         file_object.write("\n Epochs: {}".format(num_epochs))
+        file_object.write("\n Prediction accuracy: {}".format(test_accuracy))
         file_object.write("\n Hidden size: {}".format(hidden_size))
         file_object.write("\n Num layers: {}".format(num_layers))
         file_object.write("\n Learning rate: {}".format(learning_rate))
@@ -245,6 +259,4 @@ for learning_rate in learning_rate_range:
 
         i += 1
 
-        p_test = lstm(x_test).detach().numpy()
-        test_accuracy = np.mean((abs(y_test.detach().numpy() - p_test) / y_test.detach().numpy()) * 100)
-        print(f'Accuracy: {test_accuracy}')
+        
