@@ -131,7 +131,7 @@ y_test = torch.Tensor(np.array(y[train_size:len(y)]))
 
 learning_rate_range = np.arange(0.1, 0.6, 0.1)
 hidden_size_range = np.arange(1,7,1)
-num_epochs = 100
+num_epochs = 1000
 input_size = 1
 num_layers = 1
 num_classes = 1
