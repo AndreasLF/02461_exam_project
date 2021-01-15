@@ -13,15 +13,14 @@ from math import floor
 
 from extract_ssi_data import *
 
-
 print("GPU Driver is installed: "+str(torch.cuda.is_available()))
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Percentage of test size
 test_size_pct = 0.20
-num_epochs = 370
-learning_rate = 0.04
+num_epochs = 230
+learning_rate = 0.05
 input_size = 1
 hidden_size = 3
 num_layers = 1

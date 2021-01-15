@@ -18,7 +18,7 @@ def extract_ssi_data():
     # Read data
     test_pos_over_time = pd.read_csv(test_pos_over_time_file, sep=";", decimal=",")
     # Remove last two rows
-    df = test_pos_over_time["PosPct"].iloc[:-2]
+    df = test_pos_over_time["NewPositive"].iloc[:-2]
 
     # Set index to datetime
     df.index = pd.to_datetime(test_pos_over_time["Date"].iloc[:-2])
