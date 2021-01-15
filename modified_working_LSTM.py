@@ -13,6 +13,11 @@ from math import floor
 
 from extract_ssi_data import *
 
+
+print("GPU Driver is installed: "+str(torch.cuda.is_available()))
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # Percentage of test size
 test_size_pct = 0.20
 num_epochs = 370
@@ -70,10 +75,10 @@ class LSTM(nn.Module):
         x (torch):  is the input features
         """
         h_0 = torch.zeros(
-            self.num_layers, x.size(0), self.hidden_size)
+            self.num_layers, x.size(0), self.hidden_size).to(device)
 
         c_0 = torch.zeros(
-            self.num_layers, x.size(0), self.hidden_size)
+            self.num_layers, x.size(0), self.hidden_size).to(device)
 
         # Propagate input through LSTM
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
@@ -126,20 +131,20 @@ x, y = create_sequences(data_normalized, seq_length)
 train_size = int(floor(len(df) * (1 - test_size_pct)))
 
 # Convert all feature sequences and targets to tensors
-x_data = torch.Tensor(np.array(x))
-y_data = torch.Tensor(np.array(y))
+x_data = torch.Tensor(np.array(x)).to(device)
+y_data = torch.Tensor(np.array(y)).to(device)
 
 # Split train and test data and convert to tensors
-x_train = torch.Tensor(np.array(x[0:train_size]))
-y_train = torch.Tensor(np.array(y[0:train_size]))
+x_train = torch.Tensor(np.array(x[0:train_size])).to(device)
+y_train = torch.Tensor(np.array(y[0:train_size])).to(device)
 
-x_test = torch.Tensor(np.array(x[train_size:len(x)]))
-y_test = torch.Tensor(np.array(y[train_size:len(y)]))
+x_test = torch.Tensor(np.array(x[train_size:len(x)])).to(device)
+y_test = torch.Tensor(np.array(y[train_size:len(y)])).to(device)
 
 num_classes = 1
 
 # Create LSTM object
-lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers)
+lstm = LSTM(seq_length, num_classes, input_size, hidden_size, num_layers).to(device)
 
 # Mean squared error loss function defined
 loss_fn = torch.nn.MSELoss()
@@ -150,7 +155,7 @@ nn_log = {"train_loss": [], "test_loss": []}
 
 # Train the model
 for epoch in range(num_epochs):
-    y_pred = lstm(x_train)
+    y_pred = lstm(x_train).to(device)
     optimizer.zero_grad()
 
     # Get loss function
@@ -183,7 +188,7 @@ plt.legend(["Train loss", "Test loss"], loc='upper left')
 plt.show()
 
 # Plot train and predict data
-train_predict = lstm(x_data)
+train_predict = lstm(x_data).to(device)
 
 data_predict = train_predict.data.numpy()
 dataY_plot = y_data.data.numpy()
