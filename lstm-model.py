@@ -2,7 +2,7 @@ import torch, os
 from math import floor
 import numpy as np 
 import pandas as pd 
-from tqdm import tqdm 
+from tqdm import tqdm
 import seaborn as sns
 
 from pylab import rcParams
@@ -116,7 +116,7 @@ seq_length = 1
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
 
-# Vi konverterer træningsdata og testdata til fra numpy til pytorch tensors
+# Vi konverterer træningsdata og testdata fra numpy til pytorch tensors
 X_train = torch.from_numpy(X_train).float().to(device)
 y_train = torch.from_numpy(y_train).float().to(device)
 

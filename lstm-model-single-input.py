@@ -32,13 +32,13 @@ torch.manual_seed(RANDOM_SEED)
 #   Variables          #
 ########################
 
-num_epochs = 230
+num_epochs = 250
 learning_rate = 1e-3
-hidden = 600
+hidden = 256
 features = 1
 layers = 2
 seq_length = 1
-test_size = 0.1
+test_size = 0.2
 
 # Split data 90 % traning 10 % test
 test_data_size = int(floor(len(df)*test_size))
@@ -82,7 +82,7 @@ def create_sequences(data, seq_length):
     return np.array(xs), np.array(ys)
 
 
-# Vi opdeler vores data i sekvenser på 5 datapoints. Dette skal nok forøges da vi har meget mere end 41 datapunkter
+
 
 X_train, y_train = create_sequences(train_data, seq_length)
 X_test, y_test = create_sequences(test_data, seq_length)
@@ -196,7 +196,7 @@ plt.plot(test_hist, label="Test loss")
 # data_exploration(extract_ssi_data())
 # plt.ylim((0, 5))
 plt.legend()
-plt.savefig("C:\\Users\\augus\\iCloudDrive\\Documents\\SEM1\\3-Ugers-Projekt\\02461_exam_project\\Graphs\\Plot_for_{}-{}-{}-{}-{}-{}-{}.png".format(num_epochs, learning_rate, hidden, features,layers,seq_length, test_size))
+# plt.savefig("C:\\Users\\augus\\iCloudDrive\\Documents\\SEM1\\3-Ugers-Projekt\\02461_exam_project\\Graphs\\Plot_for_{}-{}-{}-{}-{}-{}-{}.png".format(num_epochs, learning_rate, hidden, features,layers,seq_length, test_size))
 plt.show()
 
 with torch.no_grad():
@@ -220,20 +220,20 @@ np.expand_dims(preds, axis=0)
 ).flatten()
 
 
-# plt.plot(
-#   df.index[:len(train_data)],
-#   scaler.inverse_transform(train_data).flatten(),
-#   label='Historical Daily Cases'
-# )
-# plt.plot(
-#   df.index[len(train_data):len(train_data) + len(true_cases)],
-#   true_cases,
-#   label='Real Daily Cases'
-# )
-# plt.plot(
-#   df.index[len(train_data):len(train_data) + len(true_cases)],
-#   predicted_cases,
-#   label='Predicted Daily Cases'
-# )
-# plt.legend()
-# plt.show()
+plt.plot(
+  df.index[:len(train_data)],
+  scaler.inverse_transform(train_data).flatten(),
+  label='Historical Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  true_cases,
+  label='Real Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  predicted_cases,
+  label='Predicted Daily Cases'
+)
+plt.legend()
+plt.show()

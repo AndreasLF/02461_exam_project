@@ -248,22 +248,22 @@ predicted_cases = cases_scaler.inverse_transform(
 np.expand_dims(preds, axis=0)
 ).flatten()
 
-print(predicted_cases)
-
-# plt.plot(
-#   df.index[:len(train_data)],
-#   scaler.inverse_transform(train_data).flatten(),
-#   label='Historical Daily Cases'
-# )
-# plt.plot(
-#   df.index[len(train_data):len(train_data) + len(true_cases)],
-#   true_cases,
-#   label='Real Daily Cases'
-# )
-# plt.plot(
-#   df.index[len(train_data):len(train_data) + len(true_cases)],
-#   predicted_cases,
-#   label='Predicted Daily Cases'
-# )
-# plt.legend()
-# plt.show()
+# print(predicted_cases)
+#
+plt.plot(
+  df.index[:len(train_data)],
+  scaler.inverse_transform(train_data).flatten(),
+  label='Historical Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  true_cases,
+  label='Real Daily Cases'
+)
+plt.plot(
+  df.index[len(train_data):len(train_data) + len(true_cases)],
+  predicted_cases,
+  label='Predicted Daily Cases'
+)
+plt.legend()
+plt.show()

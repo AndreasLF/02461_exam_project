@@ -6,7 +6,7 @@ from matplotlib import rc
 from pandas.plotting import register_matplotlib_converters
 import numpy as np
 
-
+pd.options.display.max_columns = None
 def extract_ssi_data():
     """ Extract new daily positive cases
     
@@ -17,9 +17,8 @@ def extract_ssi_data():
 
     # Read data
     test_pos_over_time = pd.read_csv(test_pos_over_time_file, sep=";", decimal=",")
-
     # Remove last two rows
-    df = test_pos_over_time["NewPositive"].iloc[:-2]
+    df = test_pos_over_time["PosPct"].iloc[:-2]
 
     # Set index to datetime
     df.index = pd.to_datetime(test_pos_over_time["Date"].iloc[:-2])
@@ -28,6 +27,8 @@ def extract_ssi_data():
     df = df.str.replace(".","").astype(int)
 
     return df
+
+extract_ssi_data()
 
 def data_exploration(df):
     """ Plot data 
@@ -67,7 +68,7 @@ def extract_dmi_data(stat):
 def get_data():
     df = pd.concat([extract_dmi_data("fugtig"), extract_dmi_data("temp")], axis=1)
     df.insert(0, "NewPositive",extract_ssi_data())
-    df = df.dropna()
+    df = df.fillna(0)
     return df
 
 # print(get_data())
