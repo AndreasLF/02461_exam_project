@@ -104,18 +104,23 @@ print("GPU Driver is installed: "+str(torch.cuda.is_available()))
 
 device = torch.device('cpu')
 
-    ### Variables ###
-
-# Test folder name
-test_folder = "new-corona-graphs"
-
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 
+    ### Variables ###
+
+# If true the test results and graphs will be printed to a folder. 
+# If False plots will be opened in a new window
+print_tests_to_folder = True
+
+# Test folder name. The folder we want to print the tests to
+test_folder = "test"
+
+
 # Percentage of test size
 test_size_pct = 0.20
-num_epochs = 1000
+num_epochs = 100
 # learning_rate = 0.04
 input_size = 1
 # hidden_size = 6
@@ -126,6 +131,7 @@ num_classes = 1
 # Range for iteration loop
 learning_rate_range = np.arange(0.1, 0.6, 0.1)
 hidden_size_range = np.arange(1,7,1)
+
 
 # Print each 10th epoch value
 epoch_print_interval = 100
@@ -212,10 +218,15 @@ for learning_rate in learning_rate_range:
         plt.plot(nn_log['test_loss'])
         plt.ylabel('loss')
         plt.xlabel('epoch')
-        # plt.legend(["Train loss", "Test loss"], loc='upper left')
-        plt.savefig("{}/{}_loss.png".format(test_folder, i))
-        # plt.show()
-        plt.clf()
+        plt.legend(["Train loss", "Test loss"], loc='upper left')
+
+        if print_tests_to_folder:
+            plt.savefig("{}/{}_loss.png".format(test_folder, i))
+            plt.clf()
+        else:
+            plt.show()
+
+
 
         # Plot train and predict data
         train_predict = lstm(x_data)
@@ -230,9 +241,12 @@ for learning_rate in learning_rate_range:
         plt.plot(dataY_plot)
         plt.plot(data_predict)
         plt.suptitle('Time-Series Prediction')
-        plt.savefig("{}/{}_pred.png".format(test_folder, i))
-        plt.clf()
-        # plt.show()
+
+        if print_tests_to_folder:
+            plt.savefig("{}/{}_pred.png".format(test_folder, i))
+            plt.clf()
+        else:
+            plt.show()
 
 
         # Calculate mean accuracy 
@@ -240,24 +254,25 @@ for learning_rate in learning_rate_range:
         y_pred = scaler.inverse_transform(lstm(x_test).detach().numpy())
         y_real = scaler.inverse_transform(y_test.detach().numpy())
         test_accuracy = np.mean((abs(y_real - y_pred) / y_real) * 100)
-        # print(f'Accuracy: {test_accuracy}')
+        print(f'Accuracy: {test_accuracy}')
 
-        file_object = open('{}/tests.txt'.format(test_folder), 'a')
-        file_object.write("Test {}".format(i))
-        file_object.write("\n Test size: {}".format(test_size_pct))
-        file_object.write("\n Epochs: {}".format(num_epochs))
-        file_object.write("\n Prediction accuracy: {}".format(test_accuracy))
-        file_object.write("\n Hidden size: {}".format(hidden_size))
-        file_object.write("\n Num layers: {}".format(num_layers))
-        file_object.write("\n Learning rate: {}".format(learning_rate))
-        file_object.write("\n Num classes: {}".format(num_classes))
-        file_object.write("\n Input size: {}".format(input_size))
-        file_object.write("\n Loss: ")
+        if print_tests_to_folder:
+            file_object = open('{}/tests.txt'.format(test_folder), 'a')
+            file_object.write("Test {}".format(i))
+            file_object.write("\n Test size: {}".format(test_size_pct))
+            file_object.write("\n Epochs: {}".format(num_epochs))
+            file_object.write("\n Fineal prediction accuracy: {}".format(test_accuracy))
+            file_object.write("\n Hidden size: {}".format(hidden_size))
+            file_object.write("\n Num layers: {}".format(num_layers))
+            file_object.write("\n Learning rate: {}".format(learning_rate))
+            file_object.write("\n Num classes: {}".format(num_classes))
+            file_object.write("\n Input size: {}".format(input_size))
+            file_object.write("\n Loss: ")
 
-        for ep in np.arange(0, num_epochs, epoch_print_interval):
-            file_object.write("\n   Epoch: {}, Train loss: {}, Test loss: {}".format(ep, nn_log["train_loss"][ep], nn_log["test_loss"][ep]))
-        file_object.write("\n \n")
-        file_object.close()
+            for ep in np.arange(0, num_epochs, epoch_print_interval):
+                file_object.write("\n   Epoch: {}, Train loss: {}, Test loss: {}".format(ep, nn_log["train_loss"][ep], nn_log["test_loss"][ep]))
+            file_object.write("\n \n")
+            file_object.close()
 
         i += 1
 
