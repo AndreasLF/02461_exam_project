@@ -112,32 +112,50 @@ torch.manual_seed(RANDOM_SEED)
 
 # If true the test results and graphs will be printed to a folder. 
 # If False plots will be opened in a new window
-print_tests_to_folder = True
+print_tests_to_folder = False
+
+# If true it will loop through a range of hidden_size and learning_rate
+loop_through_tests = False
 
 # Test folder name. The folder we want to print the tests to
 test_folder = "test"
 
-
 # Percentage of test size
 test_size_pct = 0.20
-num_epochs = 100
-# learning_rate = 0.04
-input_size = 1
-# hidden_size = 6
-num_layers = 1
+
+# Sequence length
 seq_length = 14
-num_classes = 1
 
-# Range for iteration loop
-learning_rate_range = np.arange(0.1, 0.6, 0.1)
-hidden_size_range = np.arange(1,7,1)
-
+# Number of iterations
+num_epochs = 100
 
 # Print each 10th epoch value
 epoch_print_interval = 100
 
+# Learning rate and hidde size, will only be used if loop_through_tests is False
+learning_rate = 0.04
+hidden_size = 6
+
+# Other variables
+input_size = 1
+num_layers = 1
+num_classes = 1
+
+
+if loop_through_tests:
+    # Testing range for leaning rate
+    learning_rate_range = np.arange(0.1, 0.6, 0.1)
+    # Testing range for hidden size
+    hidden_size_range = np.arange(1,7,1)
+else:
+    learning_rate_range = [learning_rate]
+    hidden_size_range = [hidden_size]
+
+
 # Initialize counter
 i = 1
+
+
 
 
 # Load flight data from seaborn library
