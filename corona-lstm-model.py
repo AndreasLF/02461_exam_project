@@ -133,7 +133,7 @@ num_epochs = 100
 epoch_print_interval = 100
 
 # Learning rate and hidde size, will only be used if loop_through_tests is False
-learning_rate = 0.04
+learning_rate = 0.4
 hidden_size = 6
 
 # Other variables
@@ -237,6 +237,7 @@ for learning_rate in learning_rate_range:
         plt.ylabel('loss')
         plt.xlabel('epoch')
         plt.legend(["Train loss", "Test loss"], loc='upper left')
+        plt.grid(color='gray', linestyle='-', linewidth=0.1)
 
         if print_tests_to_folder:
             plt.savefig("{}/{}_loss.png".format(test_folder, i))
@@ -259,6 +260,8 @@ for learning_rate in learning_rate_range:
         plt.plot(dataY_plot)
         plt.plot(data_predict)
         plt.suptitle('Time-Series Prediction')
+        plt.grid(color='gray', linestyle='-', linewidth=0.1)
+
 
         if print_tests_to_folder:
             plt.savefig("{}/{}_pred.png".format(test_folder, i))
